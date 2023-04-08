@@ -210,7 +210,7 @@ class AuthController extends GetxController {
     }
   }
 
-  ///Create User Data
+  ///Create User Data to firebase
   Future<void> userCreate({
     required String name,
     required String email,
