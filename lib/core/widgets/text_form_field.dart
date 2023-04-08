@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
-import 'package:medtrack/core/utils/color_manger.dart';
+
 
 class CustomFormField extends StatelessWidget {
   final TextEditingController controller;
   final TextInputType? textInputType;
   String? hintText;
   final bool isPhone;
-  bool obscureText=false;
-  VoidCallback?  suffixPressed;
+  bool obscureText = false;
+  VoidCallback? suffixPressed;
   final IconData? suffixIcon;
   final Widget? prefixIcon;
   final double? width;
   VoidCallback? onTapped;
   String? Function(String?)? validator;
+  String? Function(String?)? onChanged;
   final Widget? widget;
   final Widget? label;
   final bool isDropDown;
@@ -22,9 +23,9 @@ class CustomFormField extends StatelessWidget {
     super.key,
     required this.controller,
     this.label,
-     this.suffixPressed,
-   required this.textInputType,
-     this.hintText,
+    this.suffixPressed,
+    required this.textInputType,
+    this.hintText,
     this.isPhone = false,
     this.obscureText = false,
     this.suffixIcon,
@@ -43,45 +44,59 @@ class CustomFormField extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.only(top: 8),
+          margin: const EdgeInsets.only(top: 16),
           width: width,
-          height: 50,
+          height: 65,
           child: TextFormField(
             controller: controller,
             keyboardType: textInputType,
             onTap: onTapped,
             obscureText: obscureText,
             onFieldSubmitted: (value) {},
-            onChanged: (value) {},
+            onChanged: onChanged,
             validator: validator,
             decoration: InputDecoration(
-              fillColor: const Color(0xffF9F9F9),
-              filled: true,
+
               prefixIcon: prefixIcon,
               label: label,
               hintText: hintText,
               suffixIcon: suffixIcon != null
                   ? IconButton(
-                onPressed: suffixPressed,
-                icon: Icon(
-                  suffixIcon,
-                ),
-              )
+                      onPressed: suffixPressed,
+                      icon: Icon(
+                        suffixIcon,
+                      ),
+                    )
                   : null,
-              contentPadding: const EdgeInsets.all(20.0),
-              border: const OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              enabledBorder: const OutlineInputBorder(
-                borderSide: BorderSide(color: Colors.grey, width: 1.0),
-                borderRadius: BorderRadius.all(Radius.circular(10.0)),
-              ),
-              focusedBorder:  OutlineInputBorder(
-                borderSide: BorderSide(color: AppColors.primaryColor, width: 2.0),
-              ),
+              // errorStyle: const TextStyle(fontSize: 11),
+              // //fillColor: const Color(0xffF9F9F9),
+              // filled: true,
+              // contentPadding: const EdgeInsets.all(20.0),
+              // border: OutlineInputBorder(
+              //   borderRadius: BorderRadius.circular(10.0),
+              //   borderSide: const BorderSide(
+              //     color: Colors.white,
+              //     width: 1.0,
+              //   ),
+              // ),
+              // enabledBorder: OutlineInputBorder(
+              //   borderRadius: BorderRadius.circular(10.0),
+              //   borderSide:  BorderSide(
+              //     color:AppColors.border,
+              //     width: 1.0,
+              //   ),
+              // ),
+              // focusedBorder: OutlineInputBorder(
+              //   borderRadius: BorderRadius.circular(10.0),
+              //   borderSide: BorderSide(
+              //     color: AppColors.primaryColor,
+              //     width: 1.0,
+              //   ),
+              // ),
+            ),
+            style:  Theme.of(context).textTheme.labelMedium,
             ),
           ),
-        ),
       ],
     );
   }

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:get/get.dart';
 import 'package:medtrack/core/utils/color_manger.dart';
 
 class AppTextStyles {
@@ -17,6 +17,7 @@ class AppTextStyles {
   );
 
   static TextStyle? button = TextStyle(
-  color: AppColors.white,
-  fontSize: 22,);
+    color: AppColors.white,
+    fontSize: 22,
+  );
 }
