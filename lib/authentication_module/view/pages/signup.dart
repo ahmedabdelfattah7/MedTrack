@@ -1,8 +1,10 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:medtrack/authentication_module/controller/auth_controller.dart';
+import 'package:medtrack/authentication_module/view/shared/auth_btn.dart';
 import 'package:medtrack/authentication_module/view/shared/auth_divider.dart';
 import 'package:medtrack/authentication_module/view/shared/platform_btn.dart';
 import 'package:medtrack/core/utils/asset_manger.dart';
@@ -155,12 +157,28 @@ class SignUp extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      PlatformButton(
-                        buttonColor: AppColors.white,
-                        labelColor: AppColors.black,
-                        imageName: ImageManger.googleLogo,
-                        onTabbed: () {},
-                        label: AppStrings.signUpWithGoogle,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: SocialAuthButton(
+                              onPressed: () async{
+                                UserCredential cred =
+                              await  controller.signInWithFacebook();
+                              },
+                              imagePath: 'assets/images/facebook.png',
+                            ),
+                          ),
+                          const SizedBox(width: 5,),
+                          Expanded(
+                            child: SocialAuthButton(
+                              onPressed: () async {
+                                UserCredential cred =
+                                await controller.signInWithGoogle();
+                              },
+                              imagePath: 'assets/images/google.png',
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 5,
