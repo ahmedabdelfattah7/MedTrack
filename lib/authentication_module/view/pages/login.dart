@@ -4,6 +4,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
 import 'package:medtrack/authentication_module/controller/auth_controller.dart';
+import 'package:medtrack/authentication_module/view/shared/auth_btn.dart';
 import 'package:medtrack/authentication_module/view/shared/auth_divider.dart';
 import 'package:medtrack/authentication_module/view/shared/platform_btn.dart';
 import 'package:medtrack/core/utils/asset_manger.dart';
@@ -22,23 +23,23 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: GetBuilder<AuthController>(builder: (controller) {
-        return  SingleChildScrollView(
+        return SingleChildScrollView(
           child: Column(children: [
-            Lottie.asset(ImageManger.lottieLogo,
+            Lottie.asset(
+              ImageManger.lottieLogo,
               height: 250,
               fit: BoxFit.cover,
             ),
-
             Padding(
               padding: const EdgeInsets.all(16),
               child: Form(
-                key:_formKey,
+                key: _formKey,
                 child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
                         AppStrings.loginWelcomeSentence,
-                        style:  Theme.of(context).textTheme.bodySmall,
+                        style: Theme.of(context).textTheme.bodySmall,
                       ),
                       const SizedBox(
                         height: 10,
@@ -65,7 +66,6 @@ class LoginPage extends StatelessWidget {
                         },
                         prefixIcon: const Icon(
                           FontAwesomeIcons.envelope,
-
                         ),
                       ),
                       const SizedBox(
@@ -104,8 +104,7 @@ class LoginPage extends StatelessWidget {
                       ),
                       MainButton(
                         onTabbed: () async {
-                          if (_formKey.currentState!
-                              .validate()) {
+                          if (_formKey.currentState!.validate()) {
                             controller.signIn(
                                 emailAddress: FormFieldsControllers
                                     .loginEmailController.text
@@ -124,22 +123,33 @@ class LoginPage extends StatelessWidget {
                         ),
                         width: double.infinity,
                         height: 50,
-
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       const AuthDivider(),
-                      PlatformButton(
-                        buttonColor: AppColors.white,
-                        labelColor: AppColors.black,
-                        imageName: ImageManger.googleLogo,
-                        onTabbed: () async {
-                          UserCredential cred =
-                              await controller.signInWithGoogle();
-                          print('this is $cred');
-                        },
-                        label: AppStrings.loginWithGoogle,
+                      Row(
+                        children: [
+                          Expanded(
+                            child: SocialAuthButton(
+                              onPressed: () async{
+                                UserCredential cred =
+                                await  controller.signInWithFacebook();
+                              },
+                              imagePath: 'assets/images/facebook.png',
+                            ),
+                          ),
+                         const SizedBox(width: 5,),
+                          Expanded(
+                            child: SocialAuthButton(
+                              onPressed: () async {
+                                UserCredential cred =
+                                    await controller.signInWithGoogle();
+                              },
+                              imagePath: 'assets/images/google.png',
+                            ),
+                          ),
+                        ],
                       ),
                       const SizedBox(
                         height: 5,
