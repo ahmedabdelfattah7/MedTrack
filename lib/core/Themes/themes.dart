@@ -1,140 +1,162 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:medtrack/core/utils/color_manger.dart';
+import 'package:get/get.dart';
+import 'package:medtrack/core/utils/string_manger.dart';
+
+import '../utils/color_manger.dart';
 
 class AppThemes {
-  static ThemeData darkTheme = ThemeData(
-    scaffoldBackgroundColor: AppColors.backGroundDark,
-    primaryColor: AppColors.primarySwatch,
-    textTheme: TextTheme(
-      titleLarge: TextStyle(
-        color: AppColors.white,
-        fontSize: 22,
-        fontWeight: FontWeight.bold,
-      ),
-      labelMedium: TextStyle(
-        color: AppColors.white,
-        fontSize: 18,
-      ),
-      bodySmall: TextStyle(
-        color: AppColors.hint,
-        fontSize: 18,
-      ),
-    ),
-    inputDecorationTheme: InputDecorationTheme(
-      suffixIconColor: Colors.white,
-      prefixIconColor: Colors.white,
-      errorStyle: const TextStyle(fontSize: 11),
-      fillColor: AppColors.mainDark,
-      filled: true,
-      labelStyle: TextStyle(
-        color: AppColors.white,
-        fontSize: 18,
-      ),
-      contentPadding: const EdgeInsets.all(20.0),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.0),
-        borderSide: const BorderSide(
-          color: Colors.white,
-          width: 1.0,
-        ),
-      ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.0),
-        borderSide: BorderSide(
-          color: AppColors.white,
-          width: 1.0,
-        ),
-      ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.0),
-        borderSide: BorderSide(
-          color: AppColors.white,
-          width: 1.0,
-        ),
-      ),
-    ),
-    appBarTheme: const AppBarTheme(
-      titleSpacing: 20,
-      backgroundColor: Color(0xff121212),
-      elevation: 0.0,
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Color(0xff121212),
-        statusBarIconBrightness: Brightness.light,
-      ),
-      iconTheme: IconThemeData(
-        color: Colors.white,
-      ),
-    ),
-    drawerTheme: const DrawerThemeData(
-      backgroundColor: Color(0xff333739),
-    ),
-  );
+  static const _latoFontFamily = 'Lato';
+  static const _cairoFontFamily = 'Cairo';
 
-  static ThemeData lightTheme = ThemeData(
-    scaffoldBackgroundColor: AppColors.white,
-    primaryColor: AppColors.primaryColor,
-    textTheme: TextTheme(
-      titleLarge: TextStyle(
-        color: AppColors.black,
-        fontSize: 22,
-        fontWeight: FontWeight.bold,
-      ),
-      labelMedium: TextStyle(
-        color: AppColors.black,
-        fontSize: 18,
-      ),
-      bodySmall: TextStyle(
-        color: AppColors.hint,
-        fontSize: 18,
-      ),
-    ),
-    primarySwatch: Colors.blue,
-    appBarTheme: const AppBarTheme(
-      titleSpacing: 20,
-     // backgroundColor: Color(0xfff1f3f6),
-      elevation: 0.0,
-      systemOverlayStyle: SystemUiOverlayStyle(
-        statusBarColor: Color(0xfff6f4f4ff),
-        statusBarIconBrightness: Brightness.dark,
-      ),
-      iconTheme: IconThemeData(
-        color: Colors.black,
-      ),
-      titleTextStyle: TextStyle(
-        color: Colors.black,
-        fontSize: 20.0,
-        fontWeight: FontWeight.bold,
-      ),
-    ),
-    inputDecorationTheme: InputDecorationTheme(
-      // suffixIconColor: Colors.grey,
-      // prefixIconColor: Colors.grey,
-      errorStyle: const TextStyle(fontSize: 11),
-      fillColor: const Color(0xffF9F9F9),
-      filled: true,
-      contentPadding: const EdgeInsets.all(20.0),
-      border: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.0),
-        borderSide: const BorderSide(
+  static ThemeData getThemeDataDark({String? fontFamily}) {
+    return ThemeData(
+      scaffoldBackgroundColor: AppColors.backGroundDark,
+      fontFamily: fontFamily ?? (Get.locale?.languageCode == 'ar'
+          ? _cairoFontFamily
+          : _latoFontFamily),
+      primaryColor: Colors.blueGrey,
+      textTheme: TextTheme(
+        displayLarge: const TextStyle(
           color: Colors.white,
-          width: 1.0,
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        ),
+        displayMedium: const TextStyle(
+          color: Colors.white,
+          fontSize: 18,
+        ),
+        bodyLarge: TextStyle(
+          color: Colors.grey[400],
+          fontSize: 18,
+        ),
+        bodyMedium: const TextStyle(
+          color: Colors.white,
+          fontSize: 14,
         ),
       ),
-      enabledBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.0),
-        borderSide:  BorderSide(
-          color:AppColors.border,
-          width: 1.0,
+      inputDecorationTheme: InputDecorationTheme(
+        suffixIconColor: Colors.white,
+        prefixIconColor: Colors.white,
+        errorStyle: const TextStyle(fontSize: 11),
+        fillColor: AppColors.mainDark,
+        filled: true,
+        labelStyle: TextStyle(
+          color: AppColors.white,
+          fontSize: 18,
+        ),
+        contentPadding: const EdgeInsets.all(20.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(
+            color: Colors.white,
+            width: 1.0,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(
+            color: AppColors.white,
+            width: 1.0,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(
+            color: AppColors.white,
+            width: 1.0,
+          ),
         ),
       ),
-      focusedBorder: OutlineInputBorder(
-        borderRadius: BorderRadius.circular(10.0),
-        borderSide: BorderSide(
-          color: AppColors.primaryColor,
-          width: 1.0,
+      appBarTheme: AppBarTheme(
+        titleSpacing: 20,
+        backgroundColor: Colors.grey[900],
+        elevation: 0.0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.grey[900],
+          statusBarIconBrightness: Brightness.light,
+        ),
+        iconTheme: const IconThemeData(
+          color: Colors.white,
         ),
       ),
-    ),
-  );
+      drawerTheme: DrawerThemeData(
+        backgroundColor: Colors.grey[800],
+      ),
+    );
+  }
+    static ThemeData getThemeDataLight({String? fontFamily}) {
+      return ThemeData(
+      scaffoldBackgroundColor: Colors.white,
+      primaryColor: Colors.blue,
+        fontFamily: fontFamily ?? (Get.locale?.languageCode == 'ar'
+            ? _cairoFontFamily
+            : _latoFontFamily),
+      textTheme: TextTheme(
+        displayLarge: const TextStyle(
+          color: Colors.black,
+          fontSize: 22,
+          fontWeight: FontWeight.bold,
+        ),
+        displayMedium: const TextStyle(
+          color: Colors.black,
+          fontSize: 18,
+        ),
+        bodyLarge: TextStyle(
+          color: Colors.grey[400],
+          fontSize: 18,
+        ),
+        bodyMedium: const TextStyle(
+          color: Colors.black,
+          fontSize: 14,
+        ),
+      ),
+      appBarTheme: const AppBarTheme(
+        titleSpacing: 20,
+        backgroundColor: Colors.white,
+        elevation: 0.0,
+        systemOverlayStyle: SystemUiOverlayStyle(
+          statusBarColor: Colors.white,
+          statusBarIconBrightness: Brightness.dark,
+        ),
+        iconTheme: IconThemeData(
+          color: Colors.black,
+        ),
+        titleTextStyle: TextStyle(
+          color: Colors.black,
+          fontSize: 20.0,
+          fontWeight: FontWeight.bold,
+        ),
+      ),
+      inputDecorationTheme: InputDecorationTheme(
+        // suffixIconColor: Colors.grey,
+        // prefixIconColor: Colors.grey,
+        errorStyle: const TextStyle(fontSize: 11),
+        fillColor: const Color(0xffF9F9F9),
+        filled: true,
+        contentPadding: const EdgeInsets.all(20.0),
+        border: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: const BorderSide(
+            color: Colors.white,
+            width: 1.0,
+          ),
+        ),
+        enabledBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(
+            color: AppColors.border,
+            width: 1.0,
+          ),
+        ),
+        focusedBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(10.0),
+          borderSide: BorderSide(
+            color: AppColors.primaryColor,
+            width: 1.0,
+          ),
+        ),
+      ),
+    );
+  }
 }

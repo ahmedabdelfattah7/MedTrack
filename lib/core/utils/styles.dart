@@ -13,7 +13,7 @@ class AppTextStyles {
     fontWeight: FontWeight.bold,
   );
   static TextStyle? textFormField = const TextStyle(
-    fontSize: 18,
+    fontSize: 14,
   );
 
   static TextStyle? button = TextStyle(

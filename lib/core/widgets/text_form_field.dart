@@ -94,7 +94,7 @@ class CustomFormField extends StatelessWidget {
               //   ),
               // ),
             ),
-            style:  Theme.of(context).textTheme.labelMedium,
+            style:  Theme.of(context).textTheme.displayMedium,
             ),
           ),
       ],

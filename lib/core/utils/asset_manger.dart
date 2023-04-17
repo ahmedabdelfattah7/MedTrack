@@ -1,5 +1,6 @@
 class ImageManger{
-  static String logo = 'assets/images/logo.jpg';
-  static String googleLogo = 'assets/images/Google_logo.png';
-  static String lottieLogo ='assets/animations/logo.json';
+  static String loginImage = 'assets/images/login.svg';
+  static String signUpImage= 'assets/images/signup.svg';
+  static String googleLogo = 'assets/images/google.png';
+  static String facebookLogo = 'assets/images/facebookLogo.png';
 }

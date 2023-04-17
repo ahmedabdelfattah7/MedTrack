@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+    <string name="app_name">medtrack</string>
     <string name="facebook_app_id">2414045692089123</string>
     <string name="fb_login_protocol_scheme">fb2414045692089123</string>
-    <string name="facebook_client_token">1142055cded98623189c15de16971bbc</string>
-
+    <string name="facebook_client_token">e72d3ca5717774c32576a0b7145b42ee</string>
 </resources>

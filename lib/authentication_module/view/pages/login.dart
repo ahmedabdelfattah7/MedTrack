@@ -1,10 +1,10 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
-import 'package:lottie/lottie.dart';
 import 'package:medtrack/authentication_module/controller/auth_controller.dart';
-import 'package:medtrack/authentication_module/view/shared/auth_btn.dart';
+
 import 'package:medtrack/authentication_module/view/shared/auth_divider.dart';
 import 'package:medtrack/authentication_module/view/shared/platform_btn.dart';
 import 'package:medtrack/core/utils/asset_manger.dart';
@@ -25,10 +25,13 @@ class LoginPage extends StatelessWidget {
       body: GetBuilder<AuthController>(builder: (controller) {
         return SingleChildScrollView(
           child: Column(children: [
-            Lottie.asset(
-              ImageManger.lottieLogo,
-              height: 250,
-              fit: BoxFit.cover,
+            Padding(
+              padding: const EdgeInsets.only(top: 10),
+              child: SvgPicture.asset(
+                ImageManger.loginImage,
+                height: 250,
+                fit: BoxFit.cover,
+              ),
             ),
             Padding(
               padding: const EdgeInsets.all(16),
@@ -38,15 +41,15 @@ class LoginPage extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppStrings.loginWelcomeSentence,
-                        style: Theme.of(context).textTheme.bodySmall,
+                        'loginWelcomeSentence'.tr,
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        AppStrings.login,
-                        style: Theme.of(context).textTheme.titleLarge,
+                        'login'.tr,
+                        style: Theme.of(context).textTheme.displayLarge,
                       ),
                       const SizedBox(
                         height: 10,
@@ -55,7 +58,7 @@ class LoginPage extends StatelessWidget {
                         textInputType: TextInputType.text,
                         controller: FormFieldsControllers.loginEmailController,
                         label: Text(
-                          AppStrings.userEmailHint,
+                          'userEmailHint'.tr,
                           style: AppTextStyles.textFormField,
                         ),
                         validator: (value) {
@@ -77,7 +80,7 @@ class LoginPage extends StatelessWidget {
                         controller:
                             FormFieldsControllers.loginPasswordController,
                         label: Text(
-                          AppStrings.userPassWordHint,
+                          'userPassWordHint'.tr,
                           style: AppTextStyles.textFormField,
                         ),
                         validator: (value) {
@@ -118,7 +121,7 @@ class LoginPage extends StatelessWidget {
                         },
                         color: AppColors.primaryColor,
                         style: Text(
-                          'Sign in',
+                          'login'.tr,
                           style: AppTextStyles.button,
                         ),
                         width: double.infinity,
@@ -131,35 +134,42 @@ class LoginPage extends StatelessWidget {
                       Row(
                         children: [
                           Expanded(
-                            child: SocialAuthButton(
-                              onPressed: () async{
+                            flex: 1,
+                            child: PlatformButton(
+                              onTabbed: () async {
                                 UserCredential cred =
-                                await  controller.signInWithFacebook();
+                                    await controller.signInWithFacebook();
                               },
-                              imagePath: 'assets/images/facebook.png',
+                              imageName: ImageManger.facebookLogo,
+                              buttonColor: Colors.white,
+                              textColor: AppColors.faceBookColor,
+                              sentence:'facebookSentence'.tr,
                             ),
                           ),
-                         const SizedBox(width: 5,),
+                          const SizedBox(
+                            width: 5,
+                          ),
                           Expanded(
-                            child: SocialAuthButton(
-                              onPressed: () async {
+                            flex: 1,
+                            child: PlatformButton(
+                              onTabbed: () async {
                                 UserCredential cred =
                                     await controller.signInWithGoogle();
                               },
-                              imagePath: 'assets/images/google.png',
+                              imageName: ImageManger.googleLogo,
+                              buttonColor: Colors.white,
+                              textColor: AppColors.faceBookColor,
+                              sentence:  'googleSentence'.tr,
                             ),
                           ),
                         ],
                       ),
-                      const SizedBox(
-                        height: 5,
-                      ),
                       HaveAccountQuestion(
-                        label: AppStrings.notHavingAccount,
+                        label:  'notHavingAccount'.tr,
                         onPressed: () {
                           Get.toNamed('/signUp');
                         },
-                        btnLabel: AppStrings.register,
+                        btnLabel:'register'.tr,
                       ),
                     ]),
               ),
