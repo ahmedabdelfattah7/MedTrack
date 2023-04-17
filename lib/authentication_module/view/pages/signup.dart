@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:lottie/lottie.dart';
@@ -25,10 +26,13 @@ class SignUp extends StatelessWidget {
         return SingleChildScrollView(
           child: Column(children: [
             Center(
-              child: Lottie.asset(
-                ImageManger.lottieLogo,
-                height: 250,
-                fit: BoxFit.cover,
+              child: Padding(
+                padding: const EdgeInsets.only(top: 10),
+                child: SvgPicture.asset(
+                  ImageManger.signUpImage,
+                  height: 250,
+                  fit: BoxFit.cover,
+                ),
               ),
             ),
             Padding(
@@ -39,15 +43,15 @@ class SignUp extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        AppStrings.signUpWelcomeSentence,
-                        style: AppTextStyles.hint,
+                        'signUpWelcomeSentence'.tr,
+                        style: Theme.of(context).textTheme.displayMedium,
                       ),
                       const SizedBox(
                         height: 10,
                       ),
                       Text(
-                        AppStrings.signUp,
-                        style: Theme.of(context).textTheme.titleLarge,
+                        'signUp'.tr,
+                        style: Theme.of(context).textTheme.displayLarge,
                       ),
                       const SizedBox(
                         height: 10,
@@ -62,7 +66,7 @@ class SignUp extends StatelessWidget {
                         },
                         controller: FormFieldsControllers.signUpNameController,
                         label: Text(
-                          AppStrings.userNameHint,
+                          'userNameHint'.tr,
                           style: AppTextStyles.textFormField,
                         ),
                         prefixIcon: const Icon(
@@ -82,7 +86,7 @@ class SignUp extends StatelessWidget {
                         },
                         controller: FormFieldsControllers.signUpEmailController,
                         label: Text(
-                          AppStrings.userEmailHint,
+                          'userEmailHint'.tr,
                           style: AppTextStyles.textFormField,
                         ),
                         prefixIcon: const Icon(
@@ -98,7 +102,7 @@ class SignUp extends StatelessWidget {
                         controller:
                             FormFieldsControllers.signUpPasswordController,
                         label: Text(
-                          AppStrings.userPassWordHint,
+                          'userPassWordHint'.tr,
                           style: AppTextStyles.textFormField,
                         ),
                         validator: (value) {
@@ -144,7 +148,7 @@ class SignUp extends StatelessWidget {
                         },
                         color: AppColors.primaryColor,
                         style: Text(
-                          'Sign Up',
+                          'signUp'.tr,
                           style: AppTextStyles.button,
                         ),
                         width: double.infinity,
@@ -153,42 +157,12 @@ class SignUp extends StatelessWidget {
                       const SizedBox(
                         height: 10,
                       ),
-                      const AuthDivider(),
-                      const SizedBox(
-                        height: 10,
-                      ),
-                      Row(
-                        children: [
-                          Expanded(
-                            child: SocialAuthButton(
-                              onPressed: () async{
-                                UserCredential cred =
-                              await  controller.signInWithFacebook();
-                              },
-                              imagePath: 'assets/images/facebook.png',
-                            ),
-                          ),
-                          const SizedBox(width: 5,),
-                          Expanded(
-                            child: SocialAuthButton(
-                              onPressed: () async {
-                                UserCredential cred =
-                                await controller.signInWithGoogle();
-                              },
-                              imagePath: 'assets/images/google.png',
-                            ),
-                          ),
-                        ],
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
                       HaveAccountQuestion(
-                        label: AppStrings.alreadyHaveAccount,
+                        label:'alreadyHaveAccount'.tr,
                         onPressed: () {
                           Get.toNamed('/login');
                         },
-                        btnLabel: AppStrings.signIn,
+                        btnLabel:'signIn'.tr,
                       ),
                     ]),
               ),

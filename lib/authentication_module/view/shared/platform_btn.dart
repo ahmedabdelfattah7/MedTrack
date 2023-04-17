@@ -1,51 +1,48 @@
 import 'package:flutter/material.dart';
-import 'package:medtrack/core/utils/color_manger.dart';
+import 'package:flutter_svg/svg.dart';
 
 class PlatformButton extends StatelessWidget {
   final String? imageName;
-  final String? label;
+  final String? sentence;
+  final Color textColor;
   final VoidCallback? onTabbed;
   final Color buttonColor;
-  final Color labelColor;
+
   const PlatformButton({
     super.key,
     required this.imageName,
-    required this.label,
+    required this.textColor,
+    required this.sentence,
     required this.onTabbed,
     required this.buttonColor,
-    required this.labelColor,
+
   });
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTabbed,
-      child: Container(
-        margin: const EdgeInsets.only(top: 10.0),
-        width: double.infinity,
-        height: 50,
-        decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(10.0),
-            color: buttonColor,
-            border: Border.all(color: AppColors.primaryColor)),
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Image(
-                image: AssetImage('$imageName'),
-              ),
-              const SizedBox(
-                width: 5,
-              ),
-              Text(
-                '$label',
-                style: TextStyle(
-                  fontSize: 18,
-                  color: labelColor,
-                ),
-              ),
-            ],
+    return SizedBox(
+      height: 50,
+      width: 50,
+      child: ElevatedButton.icon(
+        onPressed: onTabbed,
+        style: ElevatedButton.styleFrom(
+          backgroundColor: buttonColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+            side: BorderSide(
+              color: textColor,
+            ),
+          ),
+        ),
+        icon: Image.asset(
+          imageName!,
+          height: 30,
+          width: 30,
+        ),
+        label: Text(
+          sentence!,
+          style: TextStyle(
+            fontSize: 14,
+            color: textColor,
           ),
         ),
       ),

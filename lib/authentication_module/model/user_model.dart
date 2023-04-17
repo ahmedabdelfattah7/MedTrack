@@ -1,27 +1,23 @@
 class UserModel {
-  final String uid;
   final String name;
   final String email;
+  final String uid;
 
-  UserModel({
-    required this.uid,
-    required this.name,
-    required this.email,
-  });
+  UserModel({required this.name, required this.email, required this.uid});
+
+  factory UserModel.fromJson(Map<String, dynamic>? json) {
+    return UserModel(
+      name: json!['name'],
+      email: json['email'],
+      uid: json['uid'],
+    );
+  }
 
   Map<String, dynamic> toMap() {
     return {
-      "uid": uid,
-      "name": name,
-      "email": email,
+      'name': name,
+      'email': email,
+      'uid': uid,
     };
-  }
-
-  factory UserModel.fromJson(Map<String, dynamic> map) {
-    return UserModel(
-      uid: map['uid'],
-      name: map['name'],
-      email: map['email'],
-    );
   }
 }

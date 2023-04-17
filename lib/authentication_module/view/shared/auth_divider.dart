@@ -52,11 +52,14 @@ const  HaveAccountQuestion(
       children: [
         Text(
           '$label',
+          style:  Theme.of(context).textTheme.bodyMedium,
         ),
         TextButton(
           onPressed: onPressed,
 
-          child: Text('$btnLabel'),
+          child: Text('$btnLabel',
+
+          ),
         ),
       ],
     );
