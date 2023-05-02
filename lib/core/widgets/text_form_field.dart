@@ -19,10 +19,12 @@ class CustomFormField extends StatelessWidget {
   final bool isDropDown;
   final List<String>? items;
   final TextStyle? style;
+  int? maxLines;
   CustomFormField({
     super.key,
     required this.controller,
     this.label,
+    this.maxLines,
     this.suffixPressed,
     required this.textInputType,
     this.hintText,
@@ -47,6 +49,16 @@ class CustomFormField extends StatelessWidget {
           margin: const EdgeInsets.only(top: 16),
           width: width,
           height: 65,
+          decoration: BoxDecoration(
+            boxShadow: [
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.3),
+                spreadRadius: 2,
+                blurRadius: 3,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
           child: TextFormField(
             controller: controller,
             keyboardType: textInputType,
@@ -56,7 +68,6 @@ class CustomFormField extends StatelessWidget {
             onChanged: onChanged,
             validator: validator,
             decoration: InputDecoration(
-
               prefixIcon: prefixIcon,
               label: label,
               hintText: hintText,
@@ -68,31 +79,6 @@ class CustomFormField extends StatelessWidget {
                       ),
                     )
                   : null,
-              // errorStyle: const TextStyle(fontSize: 11),
-              // //fillColor: const Color(0xffF9F9F9),
-              // filled: true,
-              // contentPadding: const EdgeInsets.all(20.0),
-              // border: OutlineInputBorder(
-              //   borderRadius: BorderRadius.circular(10.0),
-              //   borderSide: const BorderSide(
-              //     color: Colors.white,
-              //     width: 1.0,
-              //   ),
-              // ),
-              // enabledBorder: OutlineInputBorder(
-              //   borderRadius: BorderRadius.circular(10.0),
-              //   borderSide:  BorderSide(
-              //     color:AppColors.border,
-              //     width: 1.0,
-              //   ),
-              // ),
-              // focusedBorder: OutlineInputBorder(
-              //   borderRadius: BorderRadius.circular(10.0),
-              //   borderSide: BorderSide(
-              //     color: AppColors.primaryColor,
-              //     width: 1.0,
-              //   ),
-              // ),
             ),
             style:  Theme.of(context).textTheme.displayMedium,
             ),

@@ -14,7 +14,7 @@ class MainButton extends StatelessWidget {
       required this.style,
       required this.color,
         required this.width,
-      this.height});
+        required this.height});
 
   @override
   Widget build(BuildContext context) {

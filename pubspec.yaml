@@ -46,6 +46,13 @@ dependencies:
   flutter_facebook_auth: ^5.0.8
   flutter_svg: ^2.0.5
   flutter_login_facebook: ^1.8.0
+  conditional_builder_null_safety: ^0.0.6
+  intl: ^0.17.0
+  persistent_bottom_nav_bar: ^5.0.2
+
+
+
+
 
 
 
@@ -89,8 +96,8 @@ flutter:
          - asset: assets/fonts/Cairo-Bold.ttf
            weight: 700
          - asset: assets/fonts/Cairo-Regular.ttf
-     - family: PermanentMarker
+     - family: BebasNeue
        fonts:
-          - asset: assets/fonts/PermanentMarker-Regular.ttf
+          - asset: assets/fonts/BebasNeue-Regular.ttf
   # For details regarding fonts from package dependencies,
   # see https://flutter.dev/custom-fonts/#from-packages

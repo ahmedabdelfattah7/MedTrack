@@ -4,13 +4,11 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:medtrack/authentication_module/controller/auth_controller.dart';
-
 import 'package:medtrack/authentication_module/view/shared/auth_divider.dart';
 import 'package:medtrack/authentication_module/view/shared/platform_btn.dart';
 import 'package:medtrack/core/utils/asset_manger.dart';
 import 'package:medtrack/core/utils/color_manger.dart';
 import 'package:medtrack/core/utils/form_fields_controllers.dart';
-import 'package:medtrack/core/utils/string_manger.dart';
 import 'package:medtrack/core/utils/styles.dart';
 import 'package:medtrack/core/widgets/App_button.dart';
 import 'package:medtrack/core/widgets/text_form_field.dart';
@@ -22,7 +20,8 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: GetBuilder<AuthController>(builder: (controller) {
+      body: GetBuilder<AuthController>
+        (builder: (controller) {
         return SingleChildScrollView(
           child: Column(children: [
             Padding(

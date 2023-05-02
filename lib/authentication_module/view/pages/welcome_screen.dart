@@ -2,7 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:medtrack/core/local/local_controller.dart';
+import 'package:medtrack/core/utils/asset_manger.dart';
+import 'package:medtrack/core/utils/color_manger.dart';
+
 LocalController localController = Get.put(LocalController());
+
 class WelcomeScreen extends StatelessWidget {
   const WelcomeScreen({Key? key}) : super(key: key);
 
@@ -13,32 +17,33 @@ class WelcomeScreen extends StatelessWidget {
         child: Stack(
           fit: StackFit.expand,
           children: [
-            SvgPicture.asset(
-              'assets/images/splash_bg.svg',
-              fit: BoxFit.cover,
-            ),
             Padding(
               padding: const EdgeInsets.all(8.0),
               child: Align(
                 alignment: Alignment.topRight,
                 child: TextButton(
                   onPressed: () {
-                    String currentLang = Get.locale?.languageCode ?? 'en'; // Get the current language code, default to 'en' if null
-                    String newLang = currentLang == 'ar' ? 'en' : 'ar'; // Toggle the language code
+                    String currentLang = Get.locale?.languageCode ??
+                        'en'; // Get the current language code, default to 'en' if null
+                    String newLang = currentLang == 'ar'
+                        ? 'en'
+                        : 'ar'; // Toggle the language code
                     localController.changeLocal(newLang); // Change the language
                   },
                   style: TextButton.styleFrom(
-                    foregroundColor: Colors.white, backgroundColor: Colors.transparent,
+                    foregroundColor: Colors.white,
+                    backgroundColor: Colors.transparent,
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.all(Radius.circular(16)),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
                   ),
                   child: const Text(
                     'en - عربي',
                     style: TextStyle(
                       fontSize: 16,
-                      color: Colors.white,
+                      color: Colors.black,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -49,18 +54,27 @@ class WelcomeScreen extends StatelessWidget {
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Spacer(),
-                    const Text(
-                      'MedTrack',
-                      style: TextStyle(
-                        fontSize: 48,
-                        color: Colors.white,
-                        fontFamily: 'PermanentMarker',
-                        fontWeight: FontWeight.w400,
-                      ),
+                    Row(
+                      children: [
+                        SizedBox(
+                          height: 60.0,
+                          child: Image.asset(ImageManger.logo),
+                        ),
+                        SizedBox(width: 10,),
+                        const Text(
+                          'MedTrack',
+                          style: TextStyle(
+                            fontSize: 48,
+                            color: Color(0xff2663e3),
+                            fontFamily: 'BebasNeue',
+                            fontWeight: FontWeight.w400,
+                          ),
+                        ),
+                      ],
                     ),
-                    const Spacer(),
+                    SizedBox(height: 50,),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -68,9 +82,12 @@ class WelcomeScreen extends StatelessWidget {
                           Get.toNamed('/signUp');
                         },
                         style: TextButton.styleFrom(
-                          backgroundColor: const Color(0xff6cd8d1),
+                          backgroundColor: const Color(0xff3fc4ff),
                         ),
-                        child:  Text('signUp'.tr),
+                        child: Text('signUp'.tr,
+                          style: const TextStyle(
+                            fontSize: 18,
+                          ),),
                       ),
                     ),
                     Padding(
@@ -83,11 +100,12 @@ class WelcomeScreen extends StatelessWidget {
                           },
                           style: TextButton.styleFrom(
                               elevation: 0,
-                              backgroundColor: Colors.transparent,
-                              shape: const RoundedRectangleBorder(
-                                side: BorderSide(color: Color(0xff6cd8d1)),
-                              )),
-                          child:  Text('login'.tr),
+                              backgroundColor: Color(0xff2663e3),),
+                          child: Text('login'.tr,
+                            style: const TextStyle(
+                              fontSize: 18,
+                            ),
+                          ),
                         ),
                       ),
                     ),
@@ -98,7 +116,6 @@ class WelcomeScreen extends StatelessWidget {
                 ),
               ),
             ),
-
           ],
         ),
       ),
