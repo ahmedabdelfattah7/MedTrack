@@ -1,24 +1,25 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:medtrack/authentication_module/controller/auth_controller.dart';
 import 'package:medtrack/core/network/local/cache_helper.dart';
+import 'package:medtrack/core/services/settings.dart';
 import 'app.dart';
 import 'core/utils/constants.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
-  Get.put(AuthController());
-  await CacheHelper.init();
+  await initServices();
   String initialRoute;
-   uId = CacheHelper.getData(key: 'UserId');
+  uId = CacheHelper.getData(key: 'UserId');
   if (uId != null) {
-    initialRoute = '/home';
+    initialRoute = '/AppLayout';
   } else {
     initialRoute = '/welcome';
   }
   runApp(MedTrack(
     initialRoute: initialRoute,
   ));
+}
+
+Future initServices() async {
+  await Get.putAsync(() => SettingsService().init());
 }

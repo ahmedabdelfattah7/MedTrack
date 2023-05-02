@@ -78,6 +78,7 @@ class SignUp extends StatelessWidget {
                       ),
                       CustomFormField(
                         textInputType: TextInputType.emailAddress,
+
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please Enter Your Email';
@@ -156,6 +157,39 @@ class SignUp extends StatelessWidget {
                       ),
                       const SizedBox(
                         height: 10,
+                      ),  const AuthDivider(),
+                      Row(
+                        children: [
+                          Expanded(
+                            flex: 1,
+                            child: PlatformButton(
+                              onTabbed: () async {
+                                UserCredential cred =
+                                await controller.signInWithFacebook();
+                              },
+                              imageName: ImageManger.facebookLogo,
+                              buttonColor: Colors.white,
+                              textColor: AppColors.faceBookColor,
+                              sentence:'facebookSentence'.tr,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 5,
+                          ),
+                          Expanded(
+                            flex: 1,
+                            child: PlatformButton(
+                              onTabbed: () async {
+                                UserCredential cred =
+                                await controller.signInWithGoogle();
+                              },
+                              imageName: ImageManger.googleLogo,
+                              buttonColor: Colors.white,
+                              textColor: AppColors.faceBookColor,
+                              sentence:  'googleSentence'.tr,
+                            ),
+                          ),
+                        ],
                       ),
                       HaveAccountQuestion(
                         label:'alreadyHaveAccount'.tr,

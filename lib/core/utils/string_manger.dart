@@ -1,10 +1,9 @@
-
 class AppStrings {
   static String loginWelcomeSentence = 'It\'s Good to Have You Again';
   static String login = 'Sign in !';
-  static String userEmailHint ='Enter Your Email';
-  static String userNameHint ='Enter Your Name';
-  static String userPassWordHint ='Enter Your Password';
+  static String userEmailHint = 'Enter Your Email';
+  static String userNameHint = 'Enter Your Name';
+  static String userPassWordHint = 'Enter Your Password';
   static String loginWithGoogle = 'Sign in with Google ';
   static String notHavingAccount = 'New to MedTrack? ';
   static String register = 'Create an account';
@@ -15,8 +14,16 @@ class AppStrings {
   static String signUpWelcomeSentence = 'Let\'s Make us Take Care of You';
   static String facebookSentence = 'Sign in with Facebook';
   static String googleSentence = 'Sign in with Google';
-  static String enFontFamily ='lato';
-
+  static String enFontFamily = 'lato';
+  static String doctorDiagnosis = 'Doctor\'s diagnosis';
+  static String medicalHistory = 'Medical History';
+  static String bodyVitals = 'Body Vitals';
+  static String medicalImages = 'Medical Images';
+  static String hi= 'hi';
+  static String analytics = 'Analytics';
+  static String prescriptions = 'Prescriptions';
+  static String profile = 'Profile';
+  static String home = 'Home';
   // Arabic strings
   static const String loginWelcomeSentenceAr = 'من الجيد أن نراك مجدداً';
   static const String loginAr = 'تسجيل الدخول!';
@@ -33,5 +40,13 @@ class AppStrings {
   static const String signUpWelcomeSentenceAr = 'دعنا نعتني بك';
   static const String facebookSentenceAr = 'تسجيل الدخول بفيسبوك';
   static const String googleSentenceAr = 'تسجيل الدخول بجوجل';
-
+  static String doctorDiagnosisAr = 'تشخيص الطبيب';
+  static String medicalHistoryAr = 'التاريخ الطبي الطبي';
+  static String bodyVitalsAr = 'المؤشرات الحيويه';
+  static String medicalImagesAr = 'الصور طبية';
+  static String hiAr= 'مرحبا';
+  static String analyticsAr = ' بيانات طبيه';
+  static String prescriptionsAr = 'الادويه';
+  static String profileAr = 'الصفحة الشخصية';
+  static String homeAr = 'الصفحة الرئيسية';
 }
