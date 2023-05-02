@@ -97,7 +97,7 @@ class AuthController extends GetxController {
           .signInWithEmailAndPassword(email: emailAddress, password: password);
 
       if (userCredential != null) {
-        Get.toNamed('/home');
+        Get.toNamed('/AppLayout');
         getUser();
         CacheHelper.saveData(key: 'UserId', value: userCredential!.user!.uid);
         Get.snackbar(
@@ -167,7 +167,7 @@ class AuthController extends GetxController {
         );
         CacheHelper.saveData(key: 'UserId', value: userCredential!.user!.uid);
         getUser();
-        Get.offNamed('/home');
+        Get.offNamed('/AppLayout');
       }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'account-exists-with-different-credential') {
@@ -223,7 +223,7 @@ class AuthController extends GetxController {
       getUser();
       CacheHelper.saveData(key: 'UserId', value: userCredential.user!.uid);
       // Use GetX to navigate to home screen
-      Get.offNamed('/home');
+      Get.offNamed('/AppLayout');
 
       // Return the user credential for further processing
       return userCredential;

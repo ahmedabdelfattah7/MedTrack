@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
-import 'package:medtrack/core/utils/string_manger.dart';
-
 import '../utils/color_manger.dart';
 
 class AppThemes {
@@ -12,9 +10,10 @@ class AppThemes {
   static ThemeData getThemeDataDark({String? fontFamily}) {
     return ThemeData(
       scaffoldBackgroundColor: AppColors.backGroundDark,
-      fontFamily: fontFamily ?? (Get.locale?.languageCode == 'ar'
-          ? _cairoFontFamily
-          : _latoFontFamily),
+      fontFamily: fontFamily ??
+          (Get.locale?.languageCode == 'ar'
+              ? _cairoFontFamily
+              : _latoFontFamily),
       primaryColor: Colors.blueGrey,
       textTheme: TextTheme(
         displayLarge: const TextStyle(
@@ -83,15 +82,24 @@ class AppThemes {
       drawerTheme: DrawerThemeData(
         backgroundColor: Colors.grey[800],
       ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: Colors.blue,
+        unselectedItemColor: Colors.orangeAccent,
+        elevation: 8.0,
+        backgroundColor: AppColors.mainDark,
+      ),
     );
   }
-    static ThemeData getThemeDataLight({String? fontFamily}) {
-      return ThemeData(
+
+  static ThemeData getThemeDataLight({String? fontFamily}) {
+    return ThemeData(
       scaffoldBackgroundColor: Colors.white,
       primaryColor: Colors.blue,
-        fontFamily: fontFamily ?? (Get.locale?.languageCode == 'ar'
-            ? _cairoFontFamily
-            : _latoFontFamily),
+      fontFamily: fontFamily ??
+          (Get.locale?.languageCode == 'ar'
+              ? _cairoFontFamily
+              : _latoFontFamily),
       textTheme: TextTheme(
         displayLarge: const TextStyle(
           color: Colors.black,
@@ -129,10 +137,8 @@ class AppThemes {
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
-        // suffixIconColor: Colors.grey,
-        // prefixIconColor: Colors.grey,
         errorStyle: const TextStyle(fontSize: 11),
-        fillColor: const Color(0xffF9F9F9),
+        fillColor: Colors.white,
         filled: true,
         contentPadding: const EdgeInsets.all(20.0),
         border: OutlineInputBorder(
@@ -141,6 +147,8 @@ class AppThemes {
             color: Colors.white,
             width: 1.0,
           ),
+          // Add the box shadow here
+
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(10.0),
@@ -156,6 +164,13 @@ class AppThemes {
             width: 1.0,
           ),
         ),
+      ),
+      bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        type: BottomNavigationBarType.fixed,
+        selectedItemColor: AppColors.primarySwatch,
+        elevation: 50.0,
+        unselectedItemColor: Colors.blue,
+        backgroundColor: Colors.grey.shade50,
       ),
     );
   }
