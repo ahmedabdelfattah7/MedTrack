@@ -22,9 +22,10 @@ class DoctorDiagnosis extends StatelessWidget {
       builder: (controller) => Scaffold(
         appBar: AppBar(
           title: Text(
-            'Please input the doctor diagnosis',
+            'Please input the doctor meeting summary',
             style: Theme.of(context).textTheme.displayMedium,
           ),
+
         ),
         body: SingleChildScrollView(
           child: Padding(
@@ -175,7 +176,7 @@ class DoctorDiagnosis extends StatelessWidget {
                         FormFieldsControllers.diagnosisController.clear();
                       }
                     },
-                    style: const Text(
+                    child: const Text(
                       'Save',
                       style: TextStyle(
                         color: Colors.white,

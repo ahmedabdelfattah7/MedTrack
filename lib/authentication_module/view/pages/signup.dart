@@ -10,6 +10,7 @@ import 'package:medtrack/authentication_module/view/shared/auth_divider.dart';
 import 'package:medtrack/authentication_module/view/shared/platform_btn.dart';
 import 'package:medtrack/core/utils/asset_manger.dart';
 import 'package:medtrack/core/utils/color_manger.dart';
+import 'package:medtrack/core/utils/enums.dart';
 import 'package:medtrack/core/utils/form_fields_controllers.dart';
 import 'package:medtrack/core/utils/string_manger.dart';
 import 'package:medtrack/core/utils/styles.dart';
@@ -78,7 +79,6 @@ class SignUp extends StatelessWidget {
                       ),
                       CustomFormField(
                         textInputType: TextInputType.emailAddress,
-
                         validator: (value) {
                           if (value!.isEmpty) {
                             return 'Please Enter Your Email';
@@ -142,35 +142,46 @@ class SignUp extends StatelessWidget {
                                     .signUpPasswordController.text
                                     .trim());
                           }
+
                           FormFieldsControllers.signUpNameController.clear();
                           FormFieldsControllers.signUpEmailController.clear();
                           FormFieldsControllers.signUpPasswordController
                               .clear();
                         },
                         color: AppColors.primaryColor,
-                        style: Text(
-                          'signUp'.tr,
-                          style: AppTextStyles.button,
-                        ),
                         width: double.infinity,
                         height: 50,
+                        child: Obx(() {
+                          if (controller.requestState.value ==
+                              RequestState.loading) {
+                            return const CircularProgressIndicator(
+                              valueColor:
+                                  AlwaysStoppedAnimation<Color>(Colors.white),
+                            );
+                          } else {
+                            return Text(
+                              'signUp'.tr,
+                              style: AppTextStyles.button,
+                            );
+                          }
+                        }),
                       ),
                       const SizedBox(
                         height: 10,
-                      ),  const AuthDivider(),
+                      ),
+                      const AuthDivider(),
                       Row(
                         children: [
                           Expanded(
                             flex: 1,
                             child: PlatformButton(
                               onTabbed: () async {
-                                UserCredential cred =
                                 await controller.signInWithFacebook();
                               },
                               imageName: ImageManger.facebookLogo,
                               buttonColor: Colors.white,
                               textColor: AppColors.faceBookColor,
-                              sentence:'facebookSentence'.tr,
+                              sentence: 'facebookSentence'.tr,
                             ),
                           ),
                           const SizedBox(
@@ -180,23 +191,22 @@ class SignUp extends StatelessWidget {
                             flex: 1,
                             child: PlatformButton(
                               onTabbed: () async {
-                                UserCredential cred =
                                 await controller.signInWithGoogle();
                               },
                               imageName: ImageManger.googleLogo,
                               buttonColor: Colors.white,
                               textColor: AppColors.faceBookColor,
-                              sentence:  'googleSentence'.tr,
+                              sentence: 'googleSentence'.tr,
                             ),
                           ),
                         ],
                       ),
                       HaveAccountQuestion(
-                        label:'alreadyHaveAccount'.tr,
+                        label: 'alreadyHaveAccount'.tr,
                         onPressed: () {
                           Get.toNamed('/login');
                         },
-                        btnLabel:'signIn'.tr,
+                        btnLabel: 'signIn'.tr,
                       ),
                     ]),
               ),

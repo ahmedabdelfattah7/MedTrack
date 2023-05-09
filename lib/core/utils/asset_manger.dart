@@ -4,6 +4,7 @@ class ImageManger {
   static String googleLogo = 'assets/images/google.png';
   static String facebookLogo = 'assets/images/facebookLogo.png';
   static String logo = 'assets/images/logo.png';
+  static String thereIsNoData ='assets/images/noData.svg';
   static List<String> homeImages = [
     'assets/images/new_doctor_visit.svg',
     'assets/images/report.svg',

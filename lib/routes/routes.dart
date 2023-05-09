@@ -2,13 +2,15 @@ import 'package:get/get.dart';
 import 'package:medtrack/authentication_module/view/pages/login.dart';
 import 'package:medtrack/authentication_module/view/pages/signup.dart';
 import 'package:medtrack/authentication_module/view/pages/welcome_screen.dart';
-import 'package:medtrack/medical_reports_module/view/pages/Prescriptions.dart';
-import 'package:medtrack/medical_reports_module/view/pages/analytics.dart';
+import 'package:medtrack/medical_reports_module/view/pages/medical%20history/doctor_diagnosis.dart';
+import 'package:medtrack/medical_reports_module/view/pages/medical%20history/medical_history.dart';
+import 'package:medtrack/medical_reports_module/view/pages/prescriptions/Prescriptions.dart';
+import 'package:medtrack/medical_reports_module/view/pages/analytics/analytics.dart';
 import 'package:medtrack/medical_reports_module/view/pages/app_layout.dart';
-import 'package:medtrack/medical_reports_module/view/pages/home/doctor_diagnosis.dart';
-import 'package:medtrack/medical_reports_module/view/pages/home/home.dart';
-import 'package:medtrack/medical_reports_module/view/pages/home/medical_history.dart';
-import 'package:medtrack/medical_reports_module/view/pages/profile.dart';
+
+import 'package:medtrack/medical_reports_module/view/pages/home.dart';
+
+import 'package:medtrack/medical_reports_module/view/pages/profile/profile.dart';
 
 class Routes {
   static List<GetPage<dynamic>>? getPages = [
@@ -21,6 +23,6 @@ class Routes {
     GetPage(name: '/profile', page: () => Profile()),
     GetPage(name: '/home', page: () => Home()),
     GetPage(name: '/doctorDiagnosis', page: () => DoctorDiagnosis()),
-    GetPage(name: '/medicalHistory', page: () =>  MedicalHistory()),
+    GetPage(name: '/medicalHistory', page: () => MedicalHistory()),
   ];
 }

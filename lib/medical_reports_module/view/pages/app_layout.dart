@@ -5,9 +5,10 @@ import 'package:medtrack/medical_reports_module/view/widgets/bottomNavigationBar
 
 class AppLayout extends StatelessWidget {
   AppLayout({Key? key}) : super(key: key);
-  HomeController homeController = Get.find();
+
   @override
   Widget build(BuildContext context) {
+    final homeController = Get.put(HomeController());
     return Scaffold(
       body: homeController.screens[homeController.currentIndex],
       bottomNavigationBar: MyTabView(),

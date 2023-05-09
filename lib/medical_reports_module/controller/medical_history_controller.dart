@@ -4,7 +4,7 @@ import 'package:get/get.dart';
 import 'package:medtrack/medical_reports_module/model/medical_history_model.dart';
 
 class MedicalHistoryController extends GetxController {
-  final List<MedicalHistoryModel> medicalHistoryList = [];
+  RxList<MedicalHistoryModel> medicalHistoryList = RxList<MedicalHistoryModel>();
   @override
   void onInit() {
     super.onInit();

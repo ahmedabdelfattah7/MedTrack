@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medtrack/authentication_module/controller/auth_controller.dart';
+import 'package:medtrack/authentication_module/services/auth_services.dart';
 
 import 'package:medtrack/core/local/local_controller.dart';
 import 'package:medtrack/medical_reports_module/controller/theme_controller.dart';
@@ -8,6 +9,7 @@ import 'package:medtrack/medical_reports_module/controller/theme_controller.dart
 class Profile extends StatelessWidget {
   Profile({Key? key}) : super(key: key);
   final AuthController authController = Get.find();
+  final AuthServices authServices= Get.find();
   final ThemeController _themeController = Get.find<ThemeController>();
   LocalController localController = Get.find();
   @override

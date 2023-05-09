@@ -12,7 +12,7 @@ class AppBindings implements Bindings {
     Get.put(AuthController());
     Get.put(ThemeController());
     Get.lazyPut(()=>MedicalHistoryController());
-    Get.lazyPut(()=>HomeController());
+    Get.put(HomeController());
     Get.put(LocalController());
   }
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class MainButton extends StatelessWidget {
   final VoidCallback? onTabbed;
-  final Text? style;
+  final Widget? child;
   final Color? color;
 
   final double? width;
@@ -11,7 +11,7 @@ class MainButton extends StatelessWidget {
   const MainButton(
       {super.key,
       required this.onTabbed,
-      required this.style,
+      required this.child,
       required this.color,
         required this.width,
         required this.height});
@@ -29,7 +29,7 @@ class MainButton extends StatelessWidget {
           color: color,
         ),
         child: Center(
-          child: style,
+          child: child,
         ),
       ),
     );

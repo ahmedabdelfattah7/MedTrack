@@ -1,255 +1,149 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_login_facebook/flutter_login_facebook.dart';
 import 'package:get/get.dart';
-import 'package:google_sign_in/google_sign_in.dart';
 import 'package:medtrack/authentication_module/model/user_model.dart';
-import 'package:medtrack/core/network/local/cache_helper.dart';
-import 'package:medtrack/core/utils/constants.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:medtrack/authentication_module/services/auth_services.dart';
+import 'package:medtrack/core/utils/enums.dart';
 
 class AuthController extends GetxController {
-  bool isPasswordLogin = true;
-  bool isPasswordSignUp = true;
+
   UserModel? userModel;
   UserCredential? userCredential;
-  FirebaseAuth auth = FirebaseAuth.instance;
-  User? user;
-
+  final Rx<RequestState> requestState = RequestState.loaded.obs;
+  AuthServices authServices = Get.put(AuthServices());
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
-    debugPrint('onInit()');
     getUser();
   }
 
-  @override
-  void onReady() {
-    super.onReady();
-    debugPrint('onInit()');
-  }
 
-  @override
-  void onClose() {
-    super.onClose();
-    debugPrint('onClose()');
-  }
-
-  ///sign out Function
-  Future<void> register(
-      {required String emailAddress,
-      required String password,
-      required String userName}) async {
+  Future<void> register({
+    required String emailAddress,
+    required String password,
+    required String userName,
+  }) async {
+    requestState.value = RequestState.loading;
     try {
-      userCredential =
-          await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: emailAddress,
+      final data = await authServices.register(
+        emailAddress: emailAddress,
         password: password,
+        userName: userName,
       );
-
-      if (userCredential != null) {
-        userCreate(
-          uId: userCredential!.user!.uid,
-          email: emailAddress,
-          name: userName,
+      if (data) {
+        requestState.value = RequestState.loaded;
+        Get.snackbar(
+          "Success",
+          'Registration successful!',
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: Colors.white,
+          backgroundColor: Colors.green,
         );
-        getUser();
+
         Get.toNamed('/login');
-        Get.snackbar(
-          "Register",
-          'Successfully',
-          snackPosition: SnackPosition.BOTTOM,
-          colorText: Colors.white,
-          backgroundColor: Colors.green,
-          padding: const EdgeInsets.symmetric(vertical: 10),
-        );
       }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'weak-password') {
-        debugPrint('The password provided is too weak.');
-        Get.snackbar(
-          "Error",
-          e.message!,
-          snackPosition: SnackPosition.BOTTOM,
-          colorText: Colors.white,
-          backgroundColor: Colors.red,
-        );
-      } else if (e.code == 'email-already-in-use') {
-        Get.snackbar(
-          "Error",
-          e.message!,
-          snackPosition: SnackPosition.BOTTOM,
-          colorText: Colors.white,
-          backgroundColor: Colors.redAccent,
-          shouldIconPulse: true,
-        );
-        debugPrint('The account already exists for that email.');
-      }
-    }
-  }
-
-  /// Sign in Function
-  Future<void> signIn(
-      {required String emailAddress, required String password}) async {
-    try {
-      userCredential = await FirebaseAuth.instance
-          .signInWithEmailAndPassword(email: emailAddress, password: password);
-
-      if (userCredential != null) {
-        Get.toNamed('/AppLayout');
-        getUser();
-        CacheHelper.saveData(key: 'UserId', value: userCredential!.user!.uid);
-        Get.snackbar(
-          "Login",
-          'Successfully',
-          snackPosition: SnackPosition.BOTTOM,
-          colorText: Colors.white,
-          backgroundColor: Colors.green,
-        );
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'user-not-found') {
-        Get.snackbar(
-          "Error",
-          e.message!,
-          snackPosition: SnackPosition.BOTTOM,
-          colorText: Colors.white,
-          backgroundColor: Colors.red,
-          shouldIconPulse: true,
-        );
-        debugPrint('No user found for that email.');
-      } else if (e.code == 'wrong-password') {
-        Get.snackbar(
-          "Error",
-          e.message!,
-          snackPosition: SnackPosition.BOTTOM,
-          colorText: Colors.white,
-          backgroundColor: Colors.red,
-          duration: const Duration(seconds: 5),
-        );
-        debugPrint('Wrong password provided for that user.');
-      }
-    }
-  }
-
-  ///SIGN OUT
-  Future<void> signOut() async {
-    await FirebaseAuth.instance.signOut();
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.clear();
-    Get.offAllNamed('/login');
-  }
-
-  ///SIGN IN WITH GOOGLE
-  Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    FirebaseAuth auth = FirebaseAuth.instance;
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
-    if (googleUser != null) {}
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
-    );
-    try {
-      userCredential = await auth.signInWithCredential(credential);
-
-      if (userCredential != null) {
-        userCreate(
-          uId: userCredential!.user!.uid,
-          email: userCredential!.user!.email!,
-          name: userCredential!.user!.displayName!,
-        );
-        CacheHelper.saveData(key: 'UserId', value: userCredential!.user!.uid);
-        getUser();
-        Get.offNamed('/AppLayout');
-      }
-    } on FirebaseAuthException catch (e) {
-      if (e.code == 'account-exists-with-different-credential') {
-        Get.snackbar(
-          "Error",
-          e.message!,
-          snackPosition: SnackPosition.BOTTOM,
-          colorText: Colors.white,
-          backgroundColor: Colors.redAccent,
-          shouldIconPulse: true,
-        );
-      } else if (e.code == 'invalid-credential') {
-        Get.snackbar(
-          "Error",
-          e.message!,
-          snackPosition: SnackPosition.BOTTOM,
-          colorText: Colors.white,
-          backgroundColor: Colors.redAccent,
-          shouldIconPulse: true,
-        );
-      }
-    }
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
-  }
-
-  Future<UserCredential> signInWithFacebook() async {
-    try {
-      // Create a new instance of the FacebookLogin class
-      final res = await FacebookLogin().logIn(permissions: [
-        // Request permission to access the user's public profile and email address
-        FacebookPermission.publicProfile,
-        FacebookPermission.email,
-      ]);
-
-      // Get the Facebook access token from the result of the login
-      final FacebookAccessToken accessToken = res.accessToken!;
-
-      // Create an authentication credential using the Facebook access token
-      final AuthCredential credential =
-          FacebookAuthProvider.credential(accessToken.token);
-
-      // Sign in to Firebase with the Facebook authentication credential
-      final userCredential =
-          await FirebaseAuth.instance.signInWithCredential(credential);
-
-      // Get the signed-in user from the user credential
-      final user = userCredential.user!;
-
-      // Create a user profile in Firebase Firestore
-      await userCreate(
-          uId: user.uid, email: user.email!, name: user.displayName!);
-      getUser();
-      CacheHelper.saveData(key: 'UserId', value: userCredential.user!.uid);
-      // Use GetX to navigate to home screen
-      Get.offNamed('/AppLayout');
-
-      // Return the user credential for further processing
-      return userCredential;
-    } on FirebaseAuthException catch (e) {
-      // Map error codes to error messages
-      final errorMessages = {
-        'account-exists-with-different-credential':
-            'An account already exists with this email address',
-        'invalid-credential': 'Invalid Facebook credentials',
-      };
-      // Get the corresponding error message for the error code, or a generic message if not found
-      final errorMessage =
-          errorMessages[e.code] ?? 'An unexpected error occurred';
-
+    } catch (e) {
+      requestState.value = RequestState.error;
+      // handle error here
+      debugPrint('Registration failed: ${e.toString()}');
       Get.snackbar(
-        'Error',
-        errorMessage,
+        "Error",
+        'Registration failed: ${e.toString()}',
         snackPosition: SnackPosition.BOTTOM,
         colorText: Colors.white,
-        backgroundColor: Colors.redAccent,
-        shouldIconPulse: true,
+        backgroundColor: Colors.red,
       );
+    } finally {
+      requestState.value = RequestState.loaded;
+    }
+  }
 
-      // Rethrow the error for further handling
-      rethrow;
+  Future<void> signIn(
+      {required String emailAddress, required String password}) async {
+    requestState.value = RequestState.loading;
+    try {
+      final data = await authServices.signIn(
+          emailAddress: emailAddress, password: password);
+      if (data) {
+        requestState.value = RequestState.loaded;
+        Get.snackbar(
+          "Success",
+          'Login is successful!',
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: Colors.white,
+          backgroundColor: Colors.green,
+        );
+        Get.toNamed('/AppLayout');
+      }
+
     } catch (e) {
+      requestState.value = RequestState.error;
+      // handle error here
+      debugPrint('login failed: ${e.toString()}');
+      Get.snackbar(
+        "Error",
+        'login failed: ${e.toString()}',
+        snackPosition: SnackPosition.BOTTOM,
+        colorText: Colors.white,
+        backgroundColor: Colors.red,
+      );
+    } finally {
+      requestState.value = RequestState.loaded;
+    }
+  }
+
+  Future<void> signInWithGoogle() async {
+    requestState.value = RequestState.loading;
+    try {
+      userCredential = await authServices.signInWithGoogle();
+      if (userCredential?.user?.uid != null) {
+        requestState.value = RequestState.loaded;
+        Get.snackbar(
+          "Success",
+          'Login is successful!',
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: Colors.white,
+          backgroundColor: Colors.green,
+        );
+        Get.offNamed('/AppLayout');
+      }
+    } catch (e) {
+      requestState.value = RequestState.error;
+      // handle error here
+      debugPrint('login failed: ${e.toString()}');
+      Get.snackbar(
+        "Error",
+        'login failed: ${e.toString()}',
+        snackPosition: SnackPosition.BOTTOM,
+        colorText: Colors.white,
+        backgroundColor: Colors.red,
+      );
+    } finally {
+      requestState.value = RequestState.loaded;
+    }
+  }
+
+  Future<void> signInWithFacebook() async {
+    requestState.value = RequestState.loading;
+
+    try {
+      userCredential = await authServices.signInWithFacebook();
+      if (userCredential!.user?.uid != null) {
+        requestState.value = RequestState.loaded;
+
+        Get.snackbar(
+          "Success",
+          'Login is successful!',
+          snackPosition: SnackPosition.BOTTOM,
+          colorText: Colors.white,
+          backgroundColor: Colors.green,
+        );
+
+        Get.offNamed('/AppLayout');
+      }
+    } catch (e) {
+      // Handle errors here
+      debugPrint('Error signing in with Facebook: ${e.toString()}');
       Get.snackbar(
         'Error',
         'An unexpected error occurred',
@@ -258,13 +152,40 @@ class AuthController extends GetxController {
         backgroundColor: Colors.redAccent,
         shouldIconPulse: true,
       );
-
-      // Rethrow the error for further handling
-      rethrow;
+    } finally {
+      requestState.value = RequestState.loaded;
     }
   }
 
-  ///TOGGLE Password
+  Future<void> signOut() async {
+    try {
+   await  authServices.signOut();
+     Get.offNamed('/welcome');
+    } catch (error) {
+      debugPrint('Logout failed: $error');
+    }
+  }
+
+  Future<void> getUser() async {
+    try {
+      final user = await authServices.getUser();
+      if (user != null) {
+        userModel = user;
+        debugPrint('this is user ${userModel!.name}');
+      } else {
+        // handle null user error
+        debugPrint('Error User not found');
+      }
+    } catch (error) {
+      // handle error
+      debugPrint('Error Failed to get user: $error');
+    }
+    update();
+  }
+
+  bool isPasswordLogin = true;
+  bool isPasswordSignUp = true;
+  //TOGGLE Password
   void changePasswordVisibilitySignUp() {
     isPasswordSignUp = !isPasswordSignUp;
     update();
@@ -273,46 +194,5 @@ class AuthController extends GetxController {
   void changePasswordVisibilityLogin() {
     isPasswordLogin = !isPasswordLogin;
     update();
-  }
-
-  ///Get User data
-  Future<UserModel?> getUser() async {
-    try {
-      final snapshot =
-          await FirebaseFirestore.instance.collection('users').doc(uId).get();
-
-      if (snapshot.exists) {
-        final data = snapshot.data() as Map<String, dynamic>;
-        debugPrint('this is data$data');
-        userModel = UserModel.fromJson(data);
-      } else {
-        return null;
-      }
-    } catch (error) {
-      debugPrint('Error getting user data: $error');
-      return null;
-    }
-  }
-
-  ///Create User Data to firebase
-  Future<void> userCreate({
-    required String name,
-    required String email,
-    required String uId,
-  }) async {
-    userModel = UserModel(
-      name: name,
-      email: email,
-      uid: uId,
-    );
-
-    try {
-      await FirebaseFirestore.instance
-          .collection('users')
-          .doc(uId)
-          .set(userModel!.toMap());
-    } catch (error) {
-      debugPrint(error.toString());
-    }
   }
 }

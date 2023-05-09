@@ -2,19 +2,20 @@ import 'package:conditional_builder_null_safety/conditional_builder_null_safety.
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medtrack/authentication_module/controller/auth_controller.dart';
+import 'package:medtrack/authentication_module/services/auth_services.dart';
 import 'package:medtrack/core/utils/asset_manger.dart';
 import 'package:medtrack/medical_reports_module/view/widgets/home_item.dart';
 
 
 class Home extends StatelessWidget {
   Home({Key? key}) : super(key: key);
-  final AuthController authController = Get.find();
+  final AuthController authController = Get.put(AuthController());
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AuthController>(
-        init: AuthController(),
         builder: (controller) {
           return ConditionalBuilder(
+
             condition: authController.userModel != null,
             builder: (context) => Scaffold(
               body: SafeArea(
@@ -32,7 +33,7 @@ class Home extends StatelessWidget {
                             onPressed: () {},
                           ),
                           Text(
-                            'Hi, ${controller.userModel?.name}'.tr,
+                            'Hi, ${authController.userModel?.name}'.tr,
                             style: Theme.of(context).textTheme.displayMedium,
                           ),
                         ],
@@ -54,7 +55,7 @@ class Home extends StatelessWidget {
                                   onTap: () {
                                     Get.toNamed('/doctorDiagnosis');
                                   },
-                                  label: 'Doctor\'s diagnosis'.tr,
+                                  label: 'Doctor meeting summary'.tr,
                                   image: ImageManger.homeImages[0],
                                 ),
                                 const SizedBox(

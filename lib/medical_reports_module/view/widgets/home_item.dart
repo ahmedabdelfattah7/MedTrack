@@ -16,7 +16,7 @@ class HomeItem extends StatelessWidget {
       onTap: onTap,
       child: Container(
         width: 200,
-        height: 210,
+        height: 220,
         padding: const EdgeInsets.all(8.0),
         decoration: BoxDecoration(
 
