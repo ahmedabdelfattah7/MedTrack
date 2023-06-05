@@ -6,8 +6,9 @@ import 'package:get/get.dart';
 import 'package:medtrack/core/utils/asset_manger.dart';
 import 'package:medtrack/core/utils/color_manger.dart';
 import 'package:medtrack/medical_reports_module/controller/medical_history_controller.dart';
-import 'package:medtrack/medical_reports_module/controller/theme_controller.dart';
+import 'package:medtrack/core/Themes/theme_controller.dart';
 import 'package:medtrack/medical_reports_module/view/widgets/fallback.dart';
+import 'package:medtrack/routes/routes_constants.dart';
 
 class MedicalHistory extends StatelessWidget {
   MedicalHistory({Key? key}) : super(key: key);
@@ -74,10 +75,14 @@ class MedicalHistory extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: InkWell(
-                      onTap: () {},
+                      onTap: () {
+                        Get.toNamed(RouteNames.medicalHistoryDetails,
+                            arguments: item,
+                        );
+                      },
                       child: Container(
                         width: double.infinity,
-                        height: 210,
+                        height: 250,
                         padding: const EdgeInsets.all(16),
                         decoration: BoxDecoration(
                           color: Get.find<ThemeController>().isDarkMode
@@ -103,10 +108,22 @@ class MedicalHistory extends StatelessWidget {
                                   color: Colors.blue,
                                 ),
                                 const SizedBox(width: 8),
-                                Text(
-                                  'Date: ${item.date}',
-                                  style:
-                                      Theme.of(context).textTheme.displayMedium,
+                                RichText(
+                                  text: TextSpan(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium,
+                                    children: [
+                                      TextSpan(
+                                        text: 'Date '.tr,
+                                      ),
+                                      TextSpan(
+                                        text: ': ${item.date}',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -118,10 +135,22 @@ class MedicalHistory extends StatelessWidget {
                                   color: Colors.green,
                                 ),
                                 const SizedBox(width: 8),
-                                Text(
-                                  'Doctor Name:${item.doctorName}',
-                                  style:
-                                      Theme.of(context).textTheme.displayMedium,
+                                RichText(
+                                  text: TextSpan(
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .displayMedium,
+                                    children: [
+                                      TextSpan(
+                                        text: 'Doctor Name '.tr,
+                                      ),
+                                      TextSpan(
+                                        text: ': ${item.doctorName}',
+                                        style: const TextStyle(
+                                            fontWeight: FontWeight.bold),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ],
                             ),
@@ -135,13 +164,23 @@ class MedicalHistory extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Expanded(
-                                  child: Text(
-                                    'complain: ${item.complain}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayMedium,
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium,
+                                      children: [
+                                        TextSpan(
+                                          text: 'complain '.tr,
+                                        ),
+                                        TextSpan(
+                                          text: ': ${item.complain}',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    overflow: TextOverflow.clip,
                                   ),
                                 ),
                               ],
@@ -156,13 +195,24 @@ class MedicalHistory extends StatelessWidget {
                                 ),
                                 const SizedBox(width: 8),
                                 Expanded(
-                                  child: Text(
-                                    'diagnosis: ${item.diagnosis}',
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .displayMedium,
-                                    maxLines: 3,
-                                    overflow: TextOverflow.ellipsis,
+                                  child: RichText(
+                                    text: TextSpan(
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .displayMedium,
+                                      children: [
+                                        TextSpan(
+                                          text: 'Doctor Diagnosis '.tr,
+                                        ),
+                                        TextSpan(
+                                          text: ': ${item.diagnosis}',
+                                          style: const TextStyle(
+                                              fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                    softWrap: true,
+                                    overflow: TextOverflow.fade,
                                   ),
                                 ),
                               ],
@@ -179,7 +229,7 @@ class MedicalHistory extends StatelessWidget {
           ),
           fallback: (context) => FallBack(
             onPressed: () {
-              Get.offNamed('/doctorDiagnosis');
+              Get.offNamed(RouteNames.doctorDiagnosis);
             },
           ),
         ),

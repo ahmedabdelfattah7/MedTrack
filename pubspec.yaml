@@ -49,6 +49,10 @@ dependencies:
   conditional_builder_null_safety: ^0.0.6
   intl: ^0.17.0
   persistent_bottom_nav_bar: ^5.0.2
+  syncfusion_flutter_charts: ^21.2.4
+  syncfusion_flutter_datepicker: ^21.2.3
+  syncfusion_flutter_gauges: ^21.2.4
+  sqflite: ^2.2.8+4
 
 
 

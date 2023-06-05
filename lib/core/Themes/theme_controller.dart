@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:medtrack/core/network/local/cache_helper.dart';
+
 
 class ThemeController extends GetxController {
   final _isDarkMode = false.obs;
@@ -10,23 +11,21 @@ class ThemeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    _loadThemeFromPrefs();
+    _loadThemeFromCache();
   }
 
-  void _loadThemeFromPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    _isDarkMode.value = prefs.getBool('isDarkMode') ?? false;
+  void _loadThemeFromCache() async {
+    _isDarkMode.value = await CacheHelper.getBoolData(key: 'isDarkMode') ?? false;
     Get.changeThemeMode(isDarkMode ? ThemeMode.dark : ThemeMode.light);
   }
 
-  void _saveThemeToPrefs() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    prefs.setBool('isDarkMode', _isDarkMode.value);
+  void _saveThemeToCache() {
+    CacheHelper.saveData(key: 'isDarkMode', value: _isDarkMode.value);
   }
 
   void toggleTheme() {
     _isDarkMode.toggle();
-    _saveThemeToPrefs();
+    _saveThemeToCache();
     Get.changeThemeMode(isDarkMode ? ThemeMode.dark : ThemeMode.light);
   }
 }

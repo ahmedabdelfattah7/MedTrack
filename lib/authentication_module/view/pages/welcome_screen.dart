@@ -4,12 +4,11 @@ import 'package:get/get.dart';
 import 'package:medtrack/core/local/local_controller.dart';
 import 'package:medtrack/core/utils/asset_manger.dart';
 import 'package:medtrack/core/utils/color_manger.dart';
-
-LocalController localController = Get.put(LocalController());
+import 'package:medtrack/core/Themes/theme_controller.dart';
 
 class WelcomeScreen extends StatelessWidget {
-  const WelcomeScreen({Key? key}) : super(key: key);
-
+  WelcomeScreen({Key? key}) : super(key: key);
+  final LocalController localController = Get.find();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,12 +22,9 @@ class WelcomeScreen extends StatelessWidget {
                 alignment: Alignment.topRight,
                 child: TextButton(
                   onPressed: () {
-                    String currentLang = Get.locale?.languageCode ??
-                        'en'; // Get the current language code, default to 'en' if null
-                    String newLang = currentLang == 'ar'
-                        ? 'en'
-                        : 'ar'; // Toggle the language code
-                    localController.changeLocal(newLang); // Change the language
+                    String currentLang = Get.locale?.languageCode ?? 'en';
+                    String newLang = currentLang == 'ar' ? 'en' : 'ar';
+                    Get.find<LocalController>().changeLocal(newLang);
                   },
                   style: TextButton.styleFrom(
                     foregroundColor: Colors.white,
@@ -62,7 +58,9 @@ class WelcomeScreen extends StatelessWidget {
                           height: 60.0,
                           child: Image.asset(ImageManger.logo),
                         ),
-                        SizedBox(width: 10,),
+                        SizedBox(
+                          width: 10,
+                        ),
                         const Text(
                           'MedTrack',
                           style: TextStyle(
@@ -74,7 +72,9 @@ class WelcomeScreen extends StatelessWidget {
                         ),
                       ],
                     ),
-                    SizedBox(height: 50,),
+                    SizedBox(
+                      height: 50,
+                    ),
                     SizedBox(
                       width: double.infinity,
                       child: ElevatedButton(
@@ -84,10 +84,12 @@ class WelcomeScreen extends StatelessWidget {
                         style: TextButton.styleFrom(
                           backgroundColor: const Color(0xff3fc4ff),
                         ),
-                        child: Text('signUp'.tr,
+                        child: Text(
+                          'signUp'.tr,
                           style: const TextStyle(
                             fontSize: 18,
-                          ),),
+                          ),
+                        ),
                       ),
                     ),
                     Padding(
@@ -99,9 +101,11 @@ class WelcomeScreen extends StatelessWidget {
                             Get.toNamed('/login');
                           },
                           style: TextButton.styleFrom(
-                              elevation: 0,
-                              backgroundColor: Color(0xff2663e3),),
-                          child: Text('login'.tr,
+                            elevation: 0,
+                            backgroundColor: Color(0xff2663e3),
+                          ),
+                          child: Text(
+                            'login'.tr,
                             style: const TextStyle(
                               fontSize: 18,
                             ),

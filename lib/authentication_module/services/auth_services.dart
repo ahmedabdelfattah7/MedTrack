@@ -10,7 +10,6 @@ import 'package:medtrack/core/utils/constants.dart';
 
 class AuthServices extends GetxService {
   UserModel? userModel;
-  UserCredential? userCredential;
   FirebaseAuth auth = FirebaseAuth.instance;
 
   Future<bool> register({
@@ -33,17 +32,12 @@ class AuthServices extends GetxService {
   /// Sign in Function
   Future<bool> signIn(
       {required String emailAddress, required String password}) async {
-    userCredential = await FirebaseAuth.instance
+    UserCredential userCredential = await FirebaseAuth.instance
         .signInWithEmailAndPassword(email: emailAddress, password: password);
-    userCreate(
-      uId: FirebaseAuth.instance.currentUser!.uid,
-      email: emailAddress,
-    );
-    CacheHelper.saveData(key: 'UserId', value: userCredential!.user!.uid);
-
+    String name = userCredential.user!.displayName ?? emailAddress;
+    userCreate(uId: userCredential.user!.uid, email: emailAddress, name: name);
     return true;
   }
-
   ///SIGN IN WITH GOOGLE
   Future<UserCredential> signInWithGoogle() async {
     FirebaseAuth auth = FirebaseAuth.instance;
@@ -54,73 +48,54 @@ class AuthServices extends GetxService {
       accessToken: googleAuth?.accessToken,
       idToken: googleAuth?.idToken,
     );
-    userCredential = await auth.signInWithCredential(credential);
-    if (userCredential != null) {
-      userCreate(
-        uId: userCredential!.user!.uid,
-        email: userCredential!.user!.email!,
-        name: userCredential!.user!.displayName!,
-      );
-      CacheHelper.saveData(key: 'UserId', value: userCredential!.user!.uid);
-    }
+    UserCredential userCredential = await auth.signInWithCredential(credential);
+    userCreate(
+      uId: userCredential.user!.uid,
+      email: userCredential.user!.email!,
+      name: userCredential.user!.displayName!,
+    );
     return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   Future<UserCredential> signInWithFacebook() async {
-    // Create a new instance of the FacebookLogin class
     final res = await FacebookLogin().logIn(permissions: [
-      // Request permission to access the user's public profile and email address
       FacebookPermission.publicProfile,
       FacebookPermission.email,
     ]);
-
-    // Get the Facebook access token from the result of the login
     final FacebookAccessToken accessToken = res.accessToken!;
-
-    // Create an authentication credential using the Facebook access token
     final AuthCredential credential =
         FacebookAuthProvider.credential(accessToken.token);
-
-    // Sign in to Firebase with the Facebook authentication credential
     final userCredential =
         await FirebaseAuth.instance.signInWithCredential(credential);
-
-    // Get the signed-in user from the user credential
     final user = userCredential.user!;
-
-    // Create a user profile in Firebase Firestore
-
-    if (userCredential != null) {
-      await userCreate(
-          uId: user.uid, email: user.email!, name: user.displayName!);
-    }
-
-    CacheHelper.saveData(key: 'UserId', value: userCredential.user!.uid);
-
-    // Return the user credential for further processing
+     userCreate(
+        uId: user.uid, email: user.email!, name: user.displayName!);
     return userCredential;
   }
 
   ///Create User Data to firebase
-  Future<void> userCreate({
-    String? name,
+  Future<bool> userCreate({
+    required  String name,
     required String email,
     required String uId,
   }) async {
     userModel = UserModel(
-      name: name ?? "",
+      name: name ,
       email: email,
       uid: uId,
     );
-
     try {
       await FirebaseFirestore.instance
           .collection('users')
           .doc(uId)
           .set(userModel!.toMap());
       userUid = uId;
+      CacheHelper.saveData(key: 'UserId', value: uId);
+      await getUser();
+      return true;
     } catch (error) {
       debugPrint(error.toString());
+      return false;
     }
   }
 
@@ -131,7 +106,6 @@ class AuthServices extends GetxService {
           .collection('users')
           .doc(userUid)
           .get();
-
       final data = snapshot.data() as Map<String, dynamic>;
       debugPrint('this is data$data');
       return userModel = UserModel.fromJson(data);
@@ -143,6 +117,5 @@ class AuthServices extends GetxService {
 
   Future<void> signOut() async {
     await FirebaseAuth.instance.signOut();
-    CacheHelper.removeData();
   }
 }

@@ -38,6 +38,13 @@ class AppThemes {
         suffixIconColor: Colors.white,
         prefixIconColor: Colors.white,
         errorStyle: const TextStyle(fontSize: 11),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: const BorderSide(
+            color: Colors.red,
+            width: 1.0,
+          ),
+        ),
         fillColor: AppColors.mainDark,
         filled: true,
         labelStyle: TextStyle(
@@ -46,26 +53,35 @@ class AppThemes {
         ),
         contentPadding: const EdgeInsets.all(20.0),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(15.0),
           borderSide: const BorderSide(
             color: Colors.white,
             width: 1.0,
           ),
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide(
             color: AppColors.white,
             width: 1.0,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide(
             color: AppColors.white,
             width: 1.0,
           ),
         ),
+      ),
+      tabBarTheme: TabBarTheme(
+        labelColor: Colors.white,
+        unselectedLabelColor: Colors.grey[400],
+        indicator: const UnderlineTabIndicator(
+          borderSide: BorderSide(width: 4.0, color: Colors.blue),
+          insets: EdgeInsets.symmetric(horizontal: 40.0),
+        ),
+        labelPadding: EdgeInsets.all(2),
       ),
       appBarTheme: AppBarTheme(
         titleSpacing: 20,
@@ -138,27 +154,33 @@ class AppThemes {
       ),
       inputDecorationTheme: InputDecorationTheme(
         errorStyle: const TextStyle(fontSize: 11),
+        errorBorder: OutlineInputBorder(
+          borderRadius: BorderRadius.circular(15.0),
+          borderSide: const BorderSide(
+            color: Colors.red,
+            width: 1.0,
+          ),
+        ),
         fillColor: Colors.white,
         filled: true,
-        contentPadding: const EdgeInsets.all(20.0),
+        contentPadding: const EdgeInsets.symmetric( vertical: 10.0),
         border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(15.0),
           borderSide: const BorderSide(
             color: Colors.white,
             width: 1.0,
           ),
           // Add the box shadow here
-
         ),
         enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide(
             color: AppColors.border,
             width: 1.0,
           ),
         ),
         focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
+          borderRadius: BorderRadius.circular(15.0),
           borderSide: BorderSide(
             color: AppColors.primaryColor,
             width: 1.0,
@@ -172,6 +194,14 @@ class AppThemes {
         unselectedItemColor: Colors.blue,
         backgroundColor: Colors.grey.shade50,
       ),
+      tabBarTheme: const TabBarTheme(
+          labelColor: Colors.black,
+
+          unselectedLabelColor: Color(0xff575757),
+          indicator: UnderlineTabIndicator(
+              borderSide: BorderSide(width: 4.0, color: Colors.blue),
+              insets: EdgeInsets.symmetric(horizontal: 40.0)),
+          labelPadding: EdgeInsets.all(2)),
     );
   }
 }

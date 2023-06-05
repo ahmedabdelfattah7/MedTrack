@@ -1,24 +1,15 @@
-import 'package:firebase_core/firebase_core.dart';
 import 'package:get/get.dart';
 import 'package:medtrack/authentication_module/services/auth_services.dart';
 import 'package:medtrack/core/local/local_controller.dart';
-import 'package:shared_preferences/shared_preferences.dart';
+import 'package:medtrack/core/Themes/theme_controller.dart';
+import 'package:medtrack/medical_reports_module/view/pages/home/dynamics/services/dynamics_services.dart';
+import 'package:medtrack/medical_reports_module/view/pages/home/medical_history/services/medical_history_service.dart';
 
-import '../authentication_module/controller/auth_controller.dart';
-import '../core/network/local/cache_helper.dart';
-import '../medical_reports_module/controller/theme_controller.dart';
+void setupLocator()async {
+  Get.lazyPut(() => LocalController());
+  Get.lazyPut(() => ThemeController());
+  Get.lazyPut(() => AuthServices());
+  Get.lazyPut(() => DynamicsServices());
 
-
-class SettingsService extends GetxService {
-  Future<SettingsService> init() async {
-    await Firebase.initializeApp();
-    await Get.putAsync(() => SharedPreferences.getInstance());
-    Get.lazyPut(()=>AuthController());
-    Get.lazyPut(()=>AuthServices());
-    Get.put(ThemeController());
-    Get.put(LocalController());
-    await CacheHelper.init();
-
-    return this;
-  }
+  Get.lazyPut(() => MedicalHistoryService());
 }

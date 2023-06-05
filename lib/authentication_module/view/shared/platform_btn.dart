@@ -1,49 +1,32 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:medtrack/core/utils/color_manger.dart';
 
-class PlatformButton extends StatelessWidget {
-  final String? imageName;
-  final String? sentence;
-  final Color textColor;
-  final VoidCallback? onTabbed;
-  final Color buttonColor;
-
-  const PlatformButton({
-    super.key,
-    required this.imageName,
-    required this.textColor,
-    required this.sentence,
-    required this.onTabbed,
-    required this.buttonColor,
-
-  });
+class SocialLoginButton extends StatelessWidget {
+  const SocialLoginButton({
+    Key? key,
+    this.color,
+    this.icon,
+    this.onTap,
+    this.row,
+  }) : super(key: key);
+  final Color? color;
+  final String? icon;
+  final VoidCallback? onTap;
+ final Widget? row;
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 50,
-      width: 50,
-      child: ElevatedButton.icon(
-        onPressed: onTabbed,
-        style: ElevatedButton.styleFrom(
-          backgroundColor: buttonColor,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(5),
-            side: BorderSide(
-              color: textColor,
-            ),
-          ),
-        ),
-        icon: Image.asset(
-          imageName!,
-          height: 30,
-          width: 30,
-        ),
-        label: Text(
-          sentence!,
-          style: TextStyle(
-            fontSize: 14,
-            color: textColor,
-          ),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        width: double.infinity,
+        height: 50,
+        decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15),
+            color: color ?? const Color(0xFF007AFF)),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 15),
+          child: row
         ),
       ),
     );

@@ -20,7 +20,7 @@ class AuthDivider extends StatelessWidget {
           const Padding(
             padding: EdgeInsets.symmetric(horizontal: 15),
             child: Text(
-              'OR',
+              'Or Login',
               style: TextStyle(
                 color: Color(0xff8d8e98),
                 fontSize: 18,

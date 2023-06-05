@@ -3,20 +3,21 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:medtrack/authentication_module/model/user_model.dart';
 import 'package:medtrack/authentication_module/services/auth_services.dart';
+import 'package:medtrack/core/network/local/cache_helper.dart';
 import 'package:medtrack/core/utils/enums.dart';
+import 'package:medtrack/routes/routes_constants.dart';
 
 class AuthController extends GetxController {
-
   UserModel? userModel;
-  UserCredential? userCredential;
   final Rx<RequestState> requestState = RequestState.loaded.obs;
-  AuthServices authServices = Get.put(AuthServices());
+  final Rx<RequestState> googleRequestState = RequestState.loaded.obs;
+  final Rx<RequestState> facebookRequestState = RequestState.loaded.obs;
+  AuthServices authServices = Get.find<AuthServices>();
   @override
   Future<void> onInit() async {
     super.onInit();
-    getUser();
+   getUser();
   }
-
 
   Future<void> register({
     required String emailAddress,
@@ -39,8 +40,7 @@ class AuthController extends GetxController {
           colorText: Colors.white,
           backgroundColor: Colors.green,
         );
-
-        Get.toNamed('/login');
+        Get.toNamed(RouteNames.login);
       }
     } catch (e) {
       requestState.value = RequestState.error;
@@ -62,10 +62,9 @@ class AuthController extends GetxController {
       {required String emailAddress, required String password}) async {
     requestState.value = RequestState.loading;
     try {
-      final data = await authServices.signIn(
+   bool  data = await authServices.signIn(
           emailAddress: emailAddress, password: password);
       if (data) {
-        requestState.value = RequestState.loaded;
         Get.snackbar(
           "Success",
           'Login is successful!',
@@ -73,9 +72,9 @@ class AuthController extends GetxController {
           colorText: Colors.white,
           backgroundColor: Colors.green,
         );
-        Get.toNamed('/AppLayout');
+        Get.offAllNamed(RouteNames.appLayout);
+        requestState.value = RequestState.loaded;
       }
-
     } catch (e) {
       requestState.value = RequestState.error;
       // handle error here
@@ -93,11 +92,11 @@ class AuthController extends GetxController {
   }
 
   Future<void> signInWithGoogle() async {
-    requestState.value = RequestState.loading;
+    googleRequestState.value = RequestState.loading;
     try {
-      userCredential = await authServices.signInWithGoogle();
-      if (userCredential?.user?.uid != null) {
-        requestState.value = RequestState.loaded;
+
+      UserCredential userCredential = await authServices.signInWithGoogle();
+      if (userCredential.user?.uid != null) {
         Get.snackbar(
           "Success",
           'Login is successful!',
@@ -105,10 +104,12 @@ class AuthController extends GetxController {
           colorText: Colors.white,
           backgroundColor: Colors.green,
         );
-        Get.offNamed('/AppLayout');
+
+        Get.offAllNamed(RouteNames.appLayout);
+        googleRequestState.value = RequestState.loaded;
       }
     } catch (e) {
-      requestState.value = RequestState.error;
+      googleRequestState.value = RequestState.error;
       // handle error here
       debugPrint('login failed: ${e.toString()}');
       Get.snackbar(
@@ -124,13 +125,10 @@ class AuthController extends GetxController {
   }
 
   Future<void> signInWithFacebook() async {
-    requestState.value = RequestState.loading;
-
+    facebookRequestState.value = RequestState.loading;
     try {
-      userCredential = await authServices.signInWithFacebook();
-      if (userCredential!.user?.uid != null) {
-        requestState.value = RequestState.loaded;
-
+      UserCredential userCredential = await authServices.signInWithFacebook();
+      if (userCredential.user?.uid != null) {
         Get.snackbar(
           "Success",
           'Login is successful!',
@@ -138,11 +136,12 @@ class AuthController extends GetxController {
           colorText: Colors.white,
           backgroundColor: Colors.green,
         );
-
-        Get.offNamed('/AppLayout');
+        Get.offAllNamed(RouteNames.appLayout);
+        facebookRequestState.value = RequestState.loaded;
       }
     } catch (e) {
       // Handle errors here
+      facebookRequestState.value = RequestState.error;
       debugPrint('Error signing in with Facebook: ${e.toString()}');
       Get.snackbar(
         'Error',
@@ -153,25 +152,30 @@ class AuthController extends GetxController {
         shouldIconPulse: true,
       );
     } finally {
-      requestState.value = RequestState.loaded;
+      facebookRequestState.value = RequestState.loaded;
     }
   }
 
   Future<void> signOut() async {
     try {
-   await  authServices.signOut();
-     Get.offNamed('/welcome');
+      await authServices.signOut();
+      await CacheHelper.removeData();
+      debugPrint('Logout success');
+      Get.offNamed(RouteNames.welcome);
     } catch (error) {
       debugPrint('Logout failed: $error');
     }
+    update();
   }
 
   Future<void> getUser() async {
     try {
       final user = await authServices.getUser();
+      update();
       if (user != null) {
         userModel = user;
         debugPrint('this is user ${userModel!.name}');
+
       } else {
         // handle null user error
         debugPrint('Error User not found');
@@ -180,7 +184,6 @@ class AuthController extends GetxController {
       // handle error
       debugPrint('Error Failed to get user: $error');
     }
-    update();
   }
 
   bool isPasswordLogin = true;

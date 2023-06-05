@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
+import 'package:medtrack/authentication_module/controller/auth_controller.dart';
 import 'package:medtrack/medical_reports_module/view/pages/prescriptions/Prescriptions.dart';
 import 'package:medtrack/medical_reports_module/view/pages/analytics/analytics.dart';
-import 'package:medtrack/medical_reports_module/view/pages/home.dart';
+import 'package:medtrack/medical_reports_module/view/pages/home/home.dart';
 import 'package:medtrack/medical_reports_module/view/pages/profile/profile.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class HomeController extends GetxController {
   int currentIndex = 0;
+  AuthController authController = Get.put(AuthController());
+  @override
 
+  Future<void> onInit() async {
+    super.onInit();
+//    authController.getUser();
+  }
   List<PersistentBottomNavBarItem> bottomItems = [
      PersistentBottomNavBarItem(
        activeColorPrimary: Colors.black,

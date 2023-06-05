@@ -10,6 +10,12 @@ class FormFieldsControllers {
   static  TextEditingController diagnosisController = TextEditingController();
   static  TextEditingController dateController = TextEditingController();
   static  TextEditingController complainController = TextEditingController();
-
-
+  static  TextEditingController sysController = TextEditingController();
+  static  TextEditingController daiController = TextEditingController();
+  static  TextEditingController pulseController = TextEditingController();
+  static  TextEditingController dateVitalController = TextEditingController();
+  static  TextEditingController weightController = TextEditingController();
+  static  TextEditingController weightDateController = TextEditingController();
+  static  TextEditingController heightController = TextEditingController();
+  static  TextEditingController updateHeightController = TextEditingController();
 }

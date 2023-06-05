@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:medtrack/core/utils/color_manger.dart';
 import 'package:medtrack/medical_reports_module/controller/home_controller.dart';
-import 'package:medtrack/medical_reports_module/controller/theme_controller.dart';
+import 'package:medtrack/core/Themes/theme_controller.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
 
 class MyTabView extends StatelessWidget {
@@ -53,7 +53,7 @@ class MyTabView extends StatelessWidget {
                   ? AppColors.whiteShade
                   : AppColors.mainDark,
               title: 'Profile'.tr,
-              icon: const Icon(FontAwesomeIcons.addressCard),
+              icon: const Icon(FontAwesomeIcons.userDoctor),
             ),
           ],
           confineInSafeArea: true,

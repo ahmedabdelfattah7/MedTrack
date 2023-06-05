@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 
 class CustomFormField extends StatelessWidget {
@@ -20,8 +21,10 @@ class CustomFormField extends StatelessWidget {
   final List<String>? items;
   final TextStyle? style;
   int? maxLines;
+  TextAlign? textAlign;
   CustomFormField({
     super.key,
+    required this.textAlign,
     required this.controller,
     this.label,
     this.maxLines,
@@ -46,15 +49,14 @@ class CustomFormField extends StatelessWidget {
     return Column(
       children: [
         Container(
-          margin: const EdgeInsets.only(top: 16),
           width: width,
-          height: 65,
+          height: 50,
           decoration: BoxDecoration(
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.3),
+                color: Colors.grey.withOpacity(0.2),
                 spreadRadius: 2,
-                blurRadius: 3,
+                blurRadius: 5,
                 offset: const Offset(0, 3),
               ),
             ],
@@ -62,7 +64,8 @@ class CustomFormField extends StatelessWidget {
           child: TextFormField(
             controller: controller,
             keyboardType: textInputType,
-            onTap: onTapped,
+            onTap:onTapped,
+            textAlign: textAlign!,
             obscureText: obscureText,
             onFieldSubmitted: (value) {},
             onChanged: onChanged,
