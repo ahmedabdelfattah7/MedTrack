@@ -257,7 +257,7 @@ class WeightInput extends StatelessWidget {
                                double.tryParse(
                                   FormFieldsControllers.updateHeightController.text);
                       controller.isHeightUpdated?
-                      controller.updateHeight(updateHeightValue): controller.dispose();
+                      controller.updateHeight(updateHeightValue): null;
                     },
                     color: Colors.blueAccent,
                     width: double.infinity,

@@ -5,7 +5,7 @@ import 'package:medtrack/authentication_module/view/pages/welcome_screen.dart';
 import 'package:medtrack/medical_reports_module/view/pages/analytics/weight.dart';
 import 'package:medtrack/medical_reports_module/view/pages/home/dynamics/dynamics.dart';
 import 'package:medtrack/medical_reports_module/view/pages/home/dynamics/widgets/pressure_input.dart';
-import 'package:medtrack/medical_reports_module/view/pages/home/dynamics/widgets/weight.dart';
+import 'package:medtrack/medical_reports_module/view/pages/home/dynamics/widgets/weight_input.dart';
 import 'package:medtrack/medical_reports_module/view/pages/home/medical_history/doctor_diagnosis.dart';
 import 'package:medtrack/medical_reports_module/view/pages/home/medical_history/medical_history.dart';
 import 'package:medtrack/medical_reports_module/view/pages/home/medical_history/medical_history_details.dart';
@@ -23,7 +23,7 @@ class Routes {
     GetPage(name: RouteNames.appLayout, page: () => AppLayout()),
     GetPage(name: RouteNames.welcome, page: () => WelcomeScreen()),
     GetPage(name: RouteNames.prescriptions, page: () => const Prescriptions()),
-    GetPage(name: RouteNames.analytics, page: () => const Analytics()),
+    GetPage(name: RouteNames.analytics, page: () =>  Analytics()),
     GetPage(name: RouteNames.profile, page: () => Profile()),
     GetPage(name: RouteNames.home, page: () => Home()),
     GetPage(name: RouteNames.doctorDiagnosis, page: () => DoctorDiagnosis()),

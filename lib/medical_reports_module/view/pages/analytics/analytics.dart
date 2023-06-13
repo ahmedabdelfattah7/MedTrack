@@ -1,11 +1,15 @@
+import 'package:conditional_builder_null_safety/conditional_builder_null_safety.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:medtrack/medical_reports_module/controller/dynamics_controller.dart';
 import 'package:medtrack/medical_reports_module/view/pages/analytics/pressure.dart';
 import 'package:medtrack/medical_reports_module/view/pages/analytics/weight.dart';
+import 'package:medtrack/medical_reports_module/view/widgets/fallback.dart';
+import 'package:medtrack/routes/routes_constants.dart';
 
 class Analytics extends StatelessWidget {
-  const Analytics({Key? key}) : super(key: key);
-
+   Analytics({Key? key}) : super(key: key);
+  final DynamicsController weightController = Get.find();
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
@@ -27,7 +31,18 @@ class Analytics extends StatelessWidget {
             child: TabBarView(
               children: [
                 AnalysisChart(),
-                 WeightResult(),
+    ConditionalBuilder(
+    condition: weightController.weightModelList.isNotEmpty,
+    builder: (context) {
+      return
+      WeightResult();
+    },
+      fallback: (context) => FallBack(
+        onPressed: () {
+          Get.toNamed(RouteNames.weightInput);
+        },
+      ),
+    ),
               ],
             ),
           ),

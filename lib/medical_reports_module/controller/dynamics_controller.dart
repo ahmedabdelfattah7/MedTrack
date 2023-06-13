@@ -105,7 +105,7 @@ class DynamicsController extends GetxController {
         duration: const Duration(seconds: 3),
       );
       await getWightData();
-      Get.toNamed(RouteNames.analytics);
+      Get.toNamed(RouteNames.weightResult);
       debugPrint('Data saved successfully');
     } else {
       Get.snackbar(
@@ -142,16 +142,40 @@ class DynamicsController extends GetxController {
       debugPrint('Error deleting document');
     }
   }
-  Future<void> updateHeight(double height)async {
-    bool success =  await dynamicsServices.updateWeightData(weightModelList.first.id!, height);
+
+  Future<void> updateHeight(double height) async {
+    bool success = await dynamicsServices.updateWeightData(
+        weightModelList.first.id!, height);
     if (success) {
       debugPrint('wight updated successfully');
     } else {
       debugPrint('Error updating data');
     }
   }
-  void appearanceOfHeightWidget(){
+
+  void appearanceOfHeightWidget() {
     isHeightUpdated = !isHeightUpdated;
-update();
+    update();
+  }
+
+  double calculateBMI(double height, double weight) {
+    final double result = weight / (height * height / 10000);
+    return result.roundToDouble();
+  }
+
+  String getBMIRange(double bmi) {
+    if (bmi < 18.5) {
+      return 'Underweight';
+    } else if (bmi < 24.9) {
+      return 'Normal';
+    } else if (bmi < 29.9) {
+      return 'Overweight';
+    } else if (bmi < 34.9) {
+      return 'Obesity Class I';
+    } else if (bmi < 39.9) {
+      return 'Obesity Class II';
+    } else {
+      return 'Obesity Class III';
+    }
   }
 }

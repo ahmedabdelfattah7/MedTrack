@@ -45,7 +45,7 @@ class HomeController extends GetxController {
   ];
   List<Widget> screens = [
      Home(),
-    const Analytics(),
+     Analytics(),
     const Prescriptions(),
      Profile(),
   ];
