@@ -1,9 +1,8 @@
 import 'package:get/get.dart';
 import 'package:medtrack/authentication_module/controller/auth_controller.dart';
-
-import 'package:medtrack/medical_reports_module/controller/dynamics_controller.dart';
-import 'package:medtrack/medical_reports_module/controller/home_controller.dart';
-import 'package:medtrack/medical_reports_module/controller/medical_history_controller.dart';
+import 'package:medtrack/medical_reports_module/controllers/dynamics_controller.dart';
+import 'package:medtrack/medical_reports_module/controllers/home_controller.dart';
+import 'package:medtrack/medical_reports_module/controllers/medical_history_controller.dart';
 
 
 class AppBindings implements Bindings {
