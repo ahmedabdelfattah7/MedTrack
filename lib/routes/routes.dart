@@ -1,20 +1,20 @@
 import 'package:get/get.dart';
+import 'package:medtrack/app_module/app_layout/view/app_layout.dart';
+import 'package:medtrack/app_module/dynamics/pages/analytics.dart';
+import 'package:medtrack/app_module/dynamics/pages/dynamics.dart';
+import 'package:medtrack/app_module/dynamics/pages/pressure_input.dart';
+import 'package:medtrack/app_module/dynamics/pages/weight_input.dart';
+import 'package:medtrack/app_module/dynamics/pages/weight_output.dart';
+import 'package:medtrack/app_module/home/view/home.dart';
+import 'package:medtrack/app_module/medical_history/pages/doctor_diagnosis.dart';
+import 'package:medtrack/app_module/medical_history/pages/medical_history.dart';
+import 'package:medtrack/app_module/medical_history/pages/medical_history_details.dart';
+import 'package:medtrack/app_module/medical_images/medical_images.dart';
+import 'package:medtrack/app_module/prescription_module/Prescriptions.dart';
+import 'package:medtrack/app_module/profile/profile.dart';
 import 'package:medtrack/authentication_module/view/pages/login.dart';
 import 'package:medtrack/authentication_module/view/pages/signup.dart';
 import 'package:medtrack/authentication_module/view/pages/welcome_screen.dart';
-import 'package:medtrack/medical_reports_module/view/pages/analytics/weight.dart';
-import 'package:medtrack/medical_reports_module/view/pages/home/dynamics/dynamics.dart';
-import 'package:medtrack/medical_reports_module/view/pages/home/dynamics/widgets/pressure_input.dart';
-import 'package:medtrack/medical_reports_module/view/pages/home/dynamics/widgets/weight_input.dart';
-import 'package:medtrack/medical_reports_module/view/pages/home/medical_history/doctor_diagnosis.dart';
-import 'package:medtrack/medical_reports_module/view/pages/home/medical_history/medical_history.dart';
-import 'package:medtrack/medical_reports_module/view/pages/home/medical_history/medical_history_details.dart';
-import 'package:medtrack/medical_reports_module/view/pages/home/medical_images/medical_images.dart';
-import 'package:medtrack/prescription_module/Prescriptions.dart';
-import 'package:medtrack/medical_reports_module/view/pages/analytics/analytics.dart';
-import 'package:medtrack/medical_reports_module/view/app_layout.dart';
-import 'package:medtrack/medical_reports_module/view/pages/home/home.dart';
-import 'package:medtrack/medical_reports_module/view/pages/profile/profile.dart';
 import 'package:medtrack/routes/routes_constants.dart';
 
 class Routes {
@@ -23,7 +23,7 @@ class Routes {
     GetPage(name: RouteNames.signUp, page: () => SignUp()),
     GetPage(name: RouteNames.appLayout, page: () => AppLayout()),
     GetPage(name: RouteNames.welcome, page: () => WelcomeScreen()),
-    GetPage(name: RouteNames.prescriptions, page: () => const Prescriptions()),
+    GetPage(name: RouteNames.prescriptions, page: () =>  Prescriptions()),
     GetPage(name: RouteNames.analytics, page: () => Analytics()),
     GetPage(name: RouteNames.profile, page: () => Profile()),
     GetPage(name: RouteNames.home, page: () => Home()),
@@ -31,7 +31,7 @@ class Routes {
     GetPage(name: RouteNames.medicalHistory, page: () => MedicalHistory()),
     GetPage(name: RouteNames.dynamics, page: () => Dynamics()),
     GetPage(name: RouteNames.medicalHistoryDetails,
-        page: () => const MedicalHistoryDetails()),
+        page: () =>  MedicalHistoryDetails()),
     GetPage(name: RouteNames.bodyVitals, page: () => VitalsInput()),
     GetPage(name: RouteNames.weightInput, page: () => WeightInput()),
     GetPage(name: RouteNames.weightResult, page: () => WeightResult()),
