@@ -53,6 +53,11 @@ dependencies:
   syncfusion_flutter_datepicker: ^21.2.3
   syncfusion_flutter_gauges: ^21.2.4
   sqflite: ^2.2.8+4
+  image_picker: ^0.8.9
+  firebase_storage: ^11.2.4
+  cached_network_image: ^3.2.3
+  shimmer: ^3.0.0
+  zoom_pinch_overlay: ^1.4.1+3
 
 
 

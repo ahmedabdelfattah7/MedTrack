@@ -17,4 +17,5 @@ class RouteNames {
   static const String weightInput = '/weight';
   static const String weightResult = '/weightResult';
   static const String medicalImages = '/medicalImages';
+  static const String medicalImagesLargeScale = '/medicalImagesLargeSale';
 }

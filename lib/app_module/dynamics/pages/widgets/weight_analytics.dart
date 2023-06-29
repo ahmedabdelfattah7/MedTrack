@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:medtrack/app_module/dynamics/controller/dynamics_controller.dart';
-
+import 'package:medtrack/core/Themes/theme_controller.dart';
+import 'package:medtrack/core/utils/color_manger.dart';
 
 class WeightAnalytics extends StatelessWidget {
   const WeightAnalytics({
@@ -15,12 +17,21 @@ class WeightAnalytics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return DataTable(
-      columns: const <DataColumn>[
+
+      decoration:  BoxDecoration(
+          border: Border.all(
+            width: 1,
+            color:Get.find<ThemeController>().isDarkMode
+                ? Colors.white
+                :  AppColors.mainDark,
+          )),
+      columns: <DataColumn>[
         DataColumn(
+
           label: Text(
             'Label',
             textAlign: TextAlign.right,
-            style: TextStyle(
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -30,9 +41,9 @@ class WeightAnalytics extends StatelessWidget {
           label: Text(
             'Value',
             textAlign: TextAlign.left,
-            style: TextStyle(
-              fontWeight: FontWeight.bold,
-            ),
+            style: Theme.of(context).textTheme.displayMedium!.copyWith(
+                  fontWeight: FontWeight.bold,
+                ),
           ),
           numeric: false,
         ),
@@ -40,20 +51,19 @@ class WeightAnalytics extends StatelessWidget {
       rows: <DataRow>[
         DataRow(
           cells: <DataCell>[
-             DataCell(
+            DataCell(
               Text(
                 ' Your Weight',
                 textAlign: TextAlign.right,
-                style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                  fontSize: 16,
-                  fontWeight: FontWeight.w600
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium!
+                    .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
             DataCell(
               Text(
-                '${controller.weightModelList.first
-                    .weight} Kg',
+                '${controller.weightModelList.first.weight} Kg',
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.displayMedium,
               ),
@@ -62,20 +72,19 @@ class WeightAnalytics extends StatelessWidget {
         ),
         DataRow(
           cells: <DataCell>[
-             DataCell(
+            DataCell(
               Text(
                 'Your Height',
                 textAlign: TextAlign.right,
-                style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                  fontSize: 16,
-                    fontWeight: FontWeight.w600
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium!
+                    .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
             DataCell(
               Text(
-                '${controller.weightModelList.last
-                    .height!} Cm',
+                '${controller.weightModelList.last.height!} Cm',
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.displayMedium,
               ),
@@ -84,23 +93,19 @@ class WeightAnalytics extends StatelessWidget {
         ),
         DataRow(
           cells: <DataCell>[
-             DataCell(
+            DataCell(
               Text(
                 'Your Bmi Weight',
                 textAlign: TextAlign.right,
-                style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                  fontSize: 16,
-                    fontWeight: FontWeight.w600
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium!
+                    .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
             DataCell(
               Text(
-                '${controller.calculateBMI(
-                    controller.weightModelList.last
-                        .height!,
-                    controller.weightModelList.first
-                        .weight)} Kg',
+                '${controller.calculateBMI(controller.weightModelList.last.height!, controller.weightModelList.first.weight)} Kg',
                 textAlign: TextAlign.left,
                 style: Theme.of(context).textTheme.displayMedium,
               ),
@@ -109,29 +114,31 @@ class WeightAnalytics extends StatelessWidget {
         ),
         DataRow(
           cells: <DataCell>[
-             DataCell(
+            DataCell(
               Text(
-                'Bmi Range Interpretation',
+                'Helthiness',
                 textAlign: TextAlign.left,
-                style: Theme.of(context).textTheme.displayMedium!.copyWith(
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600
-                ),
+                style: Theme.of(context)
+                    .textTheme
+                    .displayMedium!
+                    .copyWith(fontSize: 16, fontWeight: FontWeight.w600),
               ),
             ),
             DataCell(
               Text(
                 interpretation,
                 textAlign: TextAlign.left,
-                style: interpretation == 'Normal'? const TextStyle(
-                    color: Colors.green,
-                    fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                ):  const TextStyle(
-                    color: Colors.red,
-                  fontWeight: FontWeight.w600,
-                  fontSize: 18,
-                ),
+                style: interpretation == 'Normal'
+                    ? const TextStyle(
+                        color: Colors.green,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      )
+                    : const TextStyle(
+                        color: Colors.red,
+                        fontWeight: FontWeight.w600,
+                        fontSize: 18,
+                      ),
               ),
             ),
           ],
