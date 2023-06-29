@@ -6,12 +6,10 @@ import 'package:medtrack/services/settings.dart';
 import 'app.dart';
 import 'core/utils/constants.dart';
 
-
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   await CacheHelper.init();
-
   setupLocator();
   String initialRoute;
   userUid = CacheHelper.getData(key: 'UserId');
