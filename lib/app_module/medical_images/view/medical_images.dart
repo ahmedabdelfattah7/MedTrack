@@ -17,7 +17,11 @@ class MedicalImages extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<MedicalImagesController>(builder: (controller) {
       return Scaffold(
-        appBar: AppBar(),
+        appBar: AppBar(
+          title:  Text('This is Your Medical images',
+            style: Theme.of(context).textTheme.displayMedium,
+          ),
+        ),
         body: Obx(
           () => ConditionalBuilder(
             condition: medicalImagesController.medicalImagesList.isNotEmpty,
@@ -27,8 +31,8 @@ class MedicalImages extends StatelessWidget {
                 child: GridView.builder(
                   gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                     crossAxisCount: 3,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing:10,
+                    crossAxisSpacing: 15,
+                    mainAxisSpacing:15,
                   ),
                   itemCount: medicalImagesController.medicalImagesList.length,
                   itemBuilder: (BuildContext context, int index) {
