@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:medtrack/app_module/dynamics/pages/analytics.dart';
 import 'package:medtrack/app_module/home/view/home.dart';
-import 'package:medtrack/app_module/prescription_module/Prescriptions.dart';
+import 'package:medtrack/app_module/prescription_module/view/prescriptions.dart';
 import 'package:medtrack/app_module/profile/profile.dart';
 import 'package:medtrack/authentication_module/controller/auth_controller.dart';
 import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
