@@ -11,7 +11,7 @@ import 'package:medtrack/app_module/medical_history/pages/medical_history.dart';
 import 'package:medtrack/app_module/medical_history/pages/medical_history_details.dart';
 import 'package:medtrack/app_module/medical_images/view/medical_image_large_scale.dart';
 import 'package:medtrack/app_module/medical_images/view/medical_images.dart';
-import 'package:medtrack/app_module/prescription_module/Prescriptions.dart';
+import 'package:medtrack/app_module/prescription_module/view/prescriptions.dart';
 import 'package:medtrack/app_module/profile/profile.dart';
 import 'package:medtrack/authentication_module/view/pages/login.dart';
 import 'package:medtrack/authentication_module/view/pages/signup.dart';

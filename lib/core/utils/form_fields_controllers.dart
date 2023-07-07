@@ -18,4 +18,8 @@ class FormFieldsControllers {
   static  TextEditingController weightDateController = TextEditingController();
   static  TextEditingController heightController = TextEditingController();
   static  TextEditingController updateHeightController = TextEditingController();
+  static  TextEditingController drugNameController =  TextEditingController();
+  static  TextEditingController drugTimeController =  TextEditingController();
+  static  TextEditingController drugTypeController =  TextEditingController();
+  static  TextEditingController drugDoseController =  TextEditingController();
 }
